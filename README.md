@@ -1,10 +1,10 @@
-# Examenopdracht Front-end Web Development / Web Services
+# Examenopdracht Web Services
 
 > Schrap hierboven wat niet past
 
-- Student: VOORNAAM NAAM
-- Studentennummer: xxxxxxxxx
-- E-mailadres: voornaam.naam@student.hogent.be
+- Student: KYANA MARCKX
+- Studentennummer: 202183241
+- E-mailadres: kyana.marckx@student.hogent.be
 
 ## Vereisten
 
