@@ -1,4 +1,4 @@
-# Voornaam Familienaam (Studentennummer)
+# Kyana Marckx (Studentennummer)
 
 > Duid aan welke vakken je volgt en vermeld voor deze vakken de link naar jouw GitHub repository. In het geval je slechts één vak volgt, verwijder alle inhoud omtrent het andere vak.
 > Verwijder alle instructies (lijnen die starten met >)
