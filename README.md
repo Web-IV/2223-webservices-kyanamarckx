@@ -41,7 +41,11 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
   
   `geboortedatum`
   
-  `adres`
+  `stad`
+
+  `straat`
+
+  `huisnummer`
 
   `[Vervoersmiddel]`
   
