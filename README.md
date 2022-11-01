@@ -49,9 +49,21 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
   
   `type`
 
-  `Reiziger *--1 Vervoersmiddel`
+  `[Verplaatsing]`
+
+  `*id`
+
+  `+vervoersmiddelId`
+
+  `+reizigerId`
+
+  `+bestemmingId`
+
+  `Reiziger *--1 Verplaatsing`
   
-  `Vervoersmiddel *--1 Bestemming`
+  `Verplaatsing *--1 Bestemming`
+
+  `Verplaatsing 1--* Vervoersmiddel`
 
 ## Opstarten
 
