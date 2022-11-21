@@ -75,6 +75,8 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 <!-- - `yarn add @koa/cors` -->
 <!-- TODO winston -->
+- `npm i express dotenv cors express-validator @prisma/client`
+- `npm i -D typescript @types/node @types/express @types/dotenv @types/cors`
 
 
 ## Testen
