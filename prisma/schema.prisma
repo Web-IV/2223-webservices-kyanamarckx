@@ -9,3 +9,38 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Reiziger {
+  id             Int            @id @default(autoincrement())
+  voornaam       String         @db.VarChar(255)
+  naam           String         @db.VarChar(255)
+  geboortedatum  DateTime       @db.Date
+  stad           String         @db.VarChar(255)
+  straat         String         @db.VarChar(255)
+  huisnummer     String         @db.VarChar(5)
+  Verplaatsingen Verplaatsing[]
+}
+
+model Bestemming {
+  id             Int            @id @default(autoincrement())
+  land           String         @db.VarChar(255)
+  stad           String         @db.VarChar(255)
+  postcode       String         @db.VarChar(10)
+  Verplaatsingen Verplaatsing[]
+}
+
+model Vervoersmiddel {
+  id             Int            @id @default(autoincrement())
+  type           String         @db.VarChar(255)
+  Verplaatsingen Verplaatsing[]
+}
+
+model Verplaatsing {
+  id                Int            @id @default(autoincrement())
+  reiziger_id       Int
+  bestemming_id     Int
+  vervoersmiddel_id Int
+  reiziger          Reiziger       @relation(fields: [reiziger_id], references: [id])
+  bestemming        Bestemming     @relation(fields: [bestemming_id], references: [id])
+  vervoersmiddel    Vervoersmiddel @relation(fields: [vervoersmiddel_id], references: [id])
+}
