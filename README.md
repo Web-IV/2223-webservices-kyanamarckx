@@ -77,6 +77,7 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 <!-- TODO winston -->
 - `npm i express dotenv cors express-validator @prisma/client`
 - `npm i -D typescript @types/node @types/express @types/dotenv @types/cors`
+- `npm install -g ts-node`
 
 
 ## Testen
