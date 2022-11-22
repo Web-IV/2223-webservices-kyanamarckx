@@ -32,7 +32,7 @@ export const getBestemmingById = async(id: number): Promise<Bestemming | null> =
   });
 };
 
-export const createBestemming = async(bestemming: Omit<Bestemming, "id">, id: number):
+export const createBestemming = async(bestemming: Omit<Bestemming, "id">):
 Promise<Bestemming> => {
   const { land, stad, postcode } = bestemming
   return db.bestemming.create({
@@ -50,7 +50,7 @@ Promise<Bestemming> => {
   });
 };
 
-export const updateBestemming = async(id: number, bestemming: Bestemming):
+export const updateBestemming = async(bestemming: Omit<Bestemming, "id">, id: number):
 Promise<Bestemming | null> => {
   const { land, stad, postcode } = bestemming
   return db.bestemming.update({

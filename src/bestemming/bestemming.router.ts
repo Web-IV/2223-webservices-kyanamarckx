@@ -41,10 +41,9 @@ async (req: Request, res: Response) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const id = parseInt(req.params.id, 10);
   try {
     const bestemming = req.body;
-    const newBestemming = await BestemmingService.createBestemming(bestemming, id);
+    const newBestemming = await BestemmingService.createBestemming(bestemming);
     return res.status(201).json(newBestemming);
   } catch (error: any) {
     return res.status(500).json(error.message);
@@ -65,7 +64,7 @@ async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
   try {
     const bestemming = req.body;
-    const updatedBestemming = await BestemmingService.updateBestemming(id, bestemming);
+    const updatedBestemming = await BestemmingService.updateBestemming(bestemming, id);
     return res.status(200).json(updatedBestemming);
   } catch (error: any) {
     return res.status(500).json(error.message);

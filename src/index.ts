@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import { reizigerRouter } from './reiziger/reiziger.router';
 import { bestemmingRouter } from './bestemming/bestemming.router';
+import { vervoersmiddelRouter } from './vervoersmiddel/vervoersmiddel.router';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/reizigers", reizigerRouter);
 app.use("/api/bestemmingen", bestemmingRouter);
+app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
