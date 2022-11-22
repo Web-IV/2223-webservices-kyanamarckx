@@ -14,7 +14,7 @@ model Reiziger {
   id             Int            @id @default(autoincrement())
   voornaam       String         @db.VarChar(255)
   naam           String         @db.VarChar(255)
-  geboortedatum  DateTime       @db.Date
+  geboortedatum  String         @db.VarChar(10)
   stad           String         @db.VarChar(255)
   straat         String         @db.VarChar(255)
   huisnummer     String         @db.VarChar(5)

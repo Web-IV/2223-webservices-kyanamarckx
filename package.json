@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "> Schrap hierboven wat niet past",
   "main": "index.js",
+  "prisma": {
+    "seed": "node --require esbuild-register prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^4.6.1",
     "abbrev": "^1.1.1",
