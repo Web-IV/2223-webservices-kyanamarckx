@@ -80,6 +80,12 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 - `npm install -g ts-node`
 - `npm i -D @babel/core @babel/preset-env @babel/preset-typescript babel-jest jest typescript`
 - `npm i -D @types/jest`
+- `npm i --save typescript-logging`
+- `npm i --save typescript-logging-category-style`
+- `npm i winston`
+- `npm i ts-log-debug`
+- `npm i source-map-support`
+- `npm i --save node-emoji`
 
 
 ## Testen

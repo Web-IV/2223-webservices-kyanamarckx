@@ -1,10 +1,10 @@
 import { createServer } from './createServer';
 
-function main() {
+async function main() {
   try {
     // const PORT: number = parseInt(process.env.PORT as string, 10);
-    const server = createServer();
-    console.log(server);
+    const server = await createServer();
+    await server.start();
 
     // console.log(`Server started on port ${PORT}`);
 
