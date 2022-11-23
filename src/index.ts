@@ -1,29 +1,24 @@
-import * as dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
+import { createServer } from './createServer';
 
-import { reizigerRouter } from './reiziger/reiziger.router';
-import { bestemmingRouter } from './bestemming/bestemming.router';
-import { vervoersmiddelRouter } from './vervoersmiddel/vervoersmiddel.router';
-import { verplaatsingRouter } from './verplaatsing/verplaatsing.router';
+function main() {
+  try {
+    // const PORT: number = parseInt(process.env.PORT as string, 10);
+    const server = createServer();
+    console.log(server);
 
-dotenv.config();
+    // console.log(`Server started on port ${PORT}`);
 
-if (!process.env.PORT) {
-  process.exit(1);
+    async function onClose() {
+      await server.stop();
+      process.exit(0);
+    }
+
+    process.on('SIGTERM', onClose);
+    process.on('SIGQUIT', onClose);
+
+  } catch (error: any) {
+    console.log(error.message);
+  }
 }
 
-const PORT: number = parseInt(process.env.PORT as string, 10);
-
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-app.use("/api/reizigers", reizigerRouter);
-app.use("/api/bestemmingen", bestemmingRouter);
-app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
-app.use("/api/verplaatsingen", verplaatsingRouter);
-
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-})
+main();

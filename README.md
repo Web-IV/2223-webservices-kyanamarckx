@@ -78,6 +78,8 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 - `npm i express dotenv cors express-validator @prisma/client`
 - `npm i -D typescript @types/node @types/express @types/dotenv @types/cors`
 - `npm install -g ts-node`
+- `npm i -D @babel/core @babel/preset-env @babel/preset-typescript babel-jest jest typescript`
+- `npm i -D @types/jest`
 
 
 ## Testen

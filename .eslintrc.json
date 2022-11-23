@@ -1,0 +1,32 @@
+{
+  "env": {
+    "es6": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "extends": "eslint:recommended",
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
