@@ -1,35 +1,36 @@
+import { Verplaatsing } from "@prisma/client";
 import { $log as logger } from "ts-log-debug";
-const verplaatsing = require('./verplaatsing/verplaatsing.service');
+import { listVerplaatsingen, getVerplaatsingById, createVerplaatsing, updateVerplaatsing, deleteVerplaatsing } from "../verplaatsing/verplaatsing.service";
 
 const debugLog = (message: string, meta = {}) => {
   logger.debug(message, meta);
 }
 
 export const getAll = async () => {
-  debugLog('get all movements');
-  const allverplaatsingen = await verplaatsing.getAll();
+  debugLog('Getting all movements');
+  const allverplaatsingen = await listVerplaatsingen();
   return { allverplaatsingen };
 };
 
 export const getById = async (id: number) => {
-  debugLog('get movement by id', { id });
-  const verplaatsingbyid = await verplaatsing.getById(id);
+  debugLog('Getting movement by id', { id });
+  const verplaatsingbyid = await getVerplaatsingById(id);
   return { verplaatsingbyid };
 };
 
-export const create = async (verplaatsing: any) => {
-  debugLog('create movement', { verplaatsing });
-  const verplaatsingcreated = await verplaatsing.create(verplaatsing);
+export const create = async (verplaatsing: Verplaatsing) => {
+  debugLog('Creating movement', { verplaatsing });
+  const verplaatsingcreated = await createVerplaatsing(verplaatsing);
   return { verplaatsingcreated };
 };
 
-export const update = async (id: number, verplaatsing: any) => {
-  debugLog('update movement with id ', { id, verplaatsing });
-  const verplaatsingupdated = await verplaatsing.update(id, verplaatsing);
+export const update = async (id: number, verplaatsing: Verplaatsing) => {
+  debugLog('Updating movement with id ', { id, verplaatsing });
+  const verplaatsingupdated = await updateVerplaatsing(id, verplaatsing);
   return { verplaatsingupdated };
 };
 
 export const remove = async (id: number) => {
-  debugLog('delete movement with id ', { id });
-  await verplaatsing.remove(id);
+  debugLog('Deleting movement with id ', { id });
+  await deleteVerplaatsing(id);
 };

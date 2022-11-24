@@ -64,7 +64,7 @@ async (req: Request, res: Response) => {
   try {
     const verplaatsing = req.body;
     const id: number = parseInt(req.params.id, 10);
-    const updatedVerplaatsing = await VerplaatsingService.updateVerplaatsing(verplaatsing, id);
+    const updatedVerplaatsing = await VerplaatsingService.updateVerplaatsing(id, verplaatsing);
     if (updatedVerplaatsing) {
       return res.status(200).json(updatedVerplaatsing);
     }

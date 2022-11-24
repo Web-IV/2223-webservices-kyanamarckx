@@ -60,7 +60,7 @@ async (req: Request, res: Response) => {
   const id = parseInt(req.params.id, 10);
   try {
     const vervoersmiddel = req.body;
-    const updatedVervoersmiddel = await VervoersmiddelService.updateVervoersmiddel(vervoersmiddel, id);
+    const updatedVervoersmiddel = await VervoersmiddelService.updateVervoersmiddel(id, vervoersmiddel);
     return res.status(200).json(updatedVervoersmiddel);
   } catch (error: any) {
     return res.status(500).json(error.message);

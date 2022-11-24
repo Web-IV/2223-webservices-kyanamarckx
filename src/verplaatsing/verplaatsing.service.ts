@@ -50,7 +50,7 @@ Promise<Verplaatsing> => {
   });
 };
 
-export const updateVerplaatsing = async(verplaatsing: Omit<Verplaatsing, "id">, id: number):
+export const updateVerplaatsing = async(id: number, verplaatsing: Omit<Verplaatsing, "id">):
 Promise<Verplaatsing | null> => {
   const { reiziger_id, bestemming_id, vervoersmiddel_id } = verplaatsing
   return db.verplaatsing.update({

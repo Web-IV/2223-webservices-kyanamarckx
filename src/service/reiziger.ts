@@ -1,35 +1,40 @@
+import { Reiziger } from "@prisma/client";
 import { $log as logger } from "ts-log-debug";
-const reiziger = require('./reiziger/reiziger.service');
+import { createReiziger, deleteReiziger, getReizigerById, listReizigers, updateReiziger } from "../reiziger/reiziger.service";
+
+const reizigers = require('./reiziger/reiziger.service');
+
+//TODO nog aanpassen
 
 const debugLog = (message: string, meta = {}) => {
   logger.debug(message, meta);
 }
 
 export const getAll = async () => {
-  debugLog('get all travellers');
-  const allreizigers = await reiziger.getAll();
+  debugLog('Getting all travellers');
+  const allreizigers = await listReizigers();
   return { allreizigers };
 };
 
 export const getById = async (id: number) => {
-  debugLog('get traveller by id', { id });
-  const reizigerbyid = await reiziger.getById(id);
+  debugLog('Getting traveller by id', { id });
+  const reizigerbyid = await getReizigerById(id);
   return { reizigerbyid };
 }
 
-export const create = async (reiziger: any) => {
-  debugLog('create traveller', { reiziger });
-  const reizigercreated = await reiziger.create(reiziger);
+export const create = async (reiziger: Reiziger) => {
+  debugLog('Creating traveller', { reiziger });
+  const reizigercreated = await createReiziger(reiziger);
   return { reizigercreated };
 }
 
-export const update = async (id: number, reiziger: any) => {
-  debugLog('update traveller with id ', { id, reiziger });
-  const reizigerupdated = await reiziger.update(id, reiziger);
+export const update = async (reiziger: Omit<Reiziger, "id">, id: number) => {
+  debugLog('Updating traveller with id ', { id, reiziger });
+  const reizigerupdated = await updateReiziger(id, reiziger);
   return { reizigerupdated };
 }
 
 export const remove = async (id: number) => {
-  debugLog('delete traveller with id ', { id });
-  await reiziger.remove(id);
+  debugLog('Deleting traveller with id ', { id });
+  await deleteReiziger(id);
 }

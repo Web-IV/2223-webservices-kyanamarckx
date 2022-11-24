@@ -70,7 +70,7 @@ async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
   try {
     const reiziger = req.body;
-    const updatedReiziger = await ReizigerService.updateReiziger(reiziger, id);
+    const updatedReiziger = await ReizigerService.updateReiziger(id, reiziger);
     return res.status(200).json(updatedReiziger);
   } catch (error: any) {
     return res.status(500).json(error.message);

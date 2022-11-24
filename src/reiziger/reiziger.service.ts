@@ -65,7 +65,7 @@ Promise<Reiziger> => {
   });
 };
 
-export const updateReiziger = async(reiziger: Omit<Reiziger, "id">, id: number):
+export const updateReiziger = async(id: number, reiziger: Omit<Reiziger, "id">):
 Promise<Reiziger> => {
   const { voornaam, naam, geboortedatum, stad, straat, huisnummer } = reiziger
   return db.reiziger.update({

@@ -40,7 +40,7 @@ Promise<Vervoersmiddel> => {
   });
 };
 
-export const updateVervoersmiddel = async(vervoersmiddel: Omit<Vervoersmiddel, "id">, id: number):
+export const updateVervoersmiddel = async(id: number, vervoersmiddel: Omit<Vervoersmiddel, "id">):
 Promise<Vervoersmiddel | null> => {
   const { type } = vervoersmiddel
   return db.vervoersmiddel.update({

@@ -1,6 +1,6 @@
 import { db } from "../utils/db.server";
 
-type Bestemming = {
+export type Bestemming = {
   id: number;
   land: string;
   stad: string;
@@ -50,7 +50,7 @@ Promise<Bestemming> => {
   });
 };
 
-export const updateBestemming = async(bestemming: Omit<Bestemming, "id">, id: number):
+export const updateBestemming = async(id: number, bestemming: Omit<Bestemming, "id">):
 Promise<Bestemming | null> => {
   const { land, stad, postcode } = bestemming
   return db.bestemming.update({

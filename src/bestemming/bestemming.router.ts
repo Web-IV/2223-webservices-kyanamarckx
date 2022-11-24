@@ -2,6 +2,10 @@ import express from 'express';
 import type { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
+import koa from 'koa';
+import type { Context } from 'koa';
+
+
 import * as BestemmingService from './bestemming.service';
 
 export const bestemmingRouter = express.Router();
@@ -64,7 +68,7 @@ async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
   try {
     const bestemming = req.body;
-    const updatedBestemming = await BestemmingService.updateBestemming(bestemming, id);
+    const updatedBestemming = await BestemmingService.updateBestemming(id, bestemming);
     return res.status(200).json(updatedBestemming);
   } catch (error: any) {
     return res.status(500).json(error.message);
