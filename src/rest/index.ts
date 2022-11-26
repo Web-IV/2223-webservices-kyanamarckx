@@ -1,20 +1,18 @@
 import express from 'express';
 const Router = express.Router();
 
-const installReizigerRouter = require('./_reiziger');
-const installBestemmingRouter = require('./_bestemming');
-const installVervoersmiddelRouter = require('./_vervoersmiddel');
-const installVerplaatsingRouter = require('./_verplaatsing');
-const installHealthRouter = require('./_health');
+import { installReizigerRouter } from './_reiziger';
+import { installBestemmingRouter } from './_bestemming';
+import { installVervoersmiddelRouter } from './_vervoersmiddel';
+import { installVerplaatsingRouter } from './_verplaatsing';
+import { installHealthRouter } from './_health';
 
-module.exports = (app: any) => {
-  const router = express.Router();
+export function installRouters(app: any) {
+  installReizigerRouter(Router);
+  installBestemmingRouter(Router);
+  installVervoersmiddelRouter(Router);
+  installVerplaatsingRouter(Router);
+  installHealthRouter(Router);
 
-  installReizigerRouter(router);
-  installBestemmingRouter(router);
-  installVervoersmiddelRouter(router);
-  installVerplaatsingRouter(router);
-  installHealthRouter(router);
-
-  app.use('/api', router);
+  app.use(Router.route('/api'));
 }

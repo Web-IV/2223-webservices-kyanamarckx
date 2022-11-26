@@ -2,10 +2,8 @@ import * as dotenv from 'dotenv';
 import express, { NextFunction } from 'express';
 import cors from 'cors';
 import emoji from 'node-emoji';
-import fetch from 'node-fetch';
 
 import { $log as logger } from "ts-log-debug";
-import bodyParser from 'body-parser';
 
 import { reizigerRouter } from './reiziger/reiziger.router';
 import { bestemmingRouter } from './bestemming/bestemming.router';
@@ -13,7 +11,6 @@ import { vervoersmiddelRouter } from './vervoersmiddel/vervoersmiddel.router';
 import { verplaatsingRouter } from './verplaatsing/verplaatsing.router';
 import { ServiceError } from './core/serviceError';
 import config from 'config';
-import { Middleware } from 'koa';
 const NODE_ENV = config.get('env');
 
 dotenv.config();
@@ -28,13 +25,6 @@ logger.name = 'Server';
 export async function createServer() {
   const PORT: number = parseInt(process.env.PORT as string, 10);
   const app = express();
-  // const middleware = {
-  //   requireAuthentication: function(req: any, res: any, next: any) {
-  //     next();
-  //   },
-  // };
-
-  // app.use(middleware.requireAuthentication);
 
   app.use(async(ctx: any, req: any, next: NextFunction) => {
     try {
@@ -111,10 +101,6 @@ export async function createServer() {
       throw error;
     }
   });
-
-
-
-
     
   app.use(cors());
   app.use(express.json());

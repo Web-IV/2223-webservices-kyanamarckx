@@ -28,7 +28,7 @@ export const create = async (reiziger: Reiziger) => {
   return { reizigercreated };
 }
 
-export const update = async (reiziger: Omit<Reiziger, "id">, id: number) => {
+export const update = async (id: number, reiziger: Omit<Reiziger, "id">) => {
   debugLog('Updating traveller with id ', { id, reiziger });
   const reizigerupdated = await updateReiziger(id, reiziger);
   return { reizigerupdated };

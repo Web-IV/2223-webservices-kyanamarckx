@@ -55,7 +55,7 @@ export const create = async (bestemming: Bestemming) => {
   return { bestemmingcreated };
 };
 
-export const update = async (bestemming: Omit<Bestemming, "id">, id: number) => {
+export const update = async (id: number, bestemming: Omit<Bestemming, "id">) => {
   debugLog('Updating destination with id ', { id, bestemming });
   const bestemmingupdated = await bestemmingen.updateBestemming(id, bestemming);
   return { bestemmingupdated };
