@@ -9,8 +9,12 @@ import { reizigerRouter } from './reiziger/reiziger.router';
 import { bestemmingRouter } from './bestemming/bestemming.router';
 import { vervoersmiddelRouter } from './vervoersmiddel/vervoersmiddel.router';
 import { verplaatsingRouter } from './verplaatsing/verplaatsing.router';
+import { seed } from '../prisma/seed';
+import { installRouters } from './rest';
 import { ServiceError } from './core/serviceError';
+import { installRoutes } from './restWIP/index';
 import config from 'config';
+
 const NODE_ENV = config.get('env');
 
 dotenv.config();
@@ -25,7 +29,10 @@ logger.name = 'Server';
 export async function createServer() {
   const PORT: number = parseInt(process.env.PORT as string, 10);
   const app = express();
-
+  const approute: express.Application = express();
+  // app.use(express.urlencoded({extended: true}));
+  app.use(express.json());
+  
   app.use(async(ctx: any, req: any, next: NextFunction) => {
     try {
       next();
@@ -104,10 +111,14 @@ export async function createServer() {
     
   app.use(cors());
   app.use(express.json());
-  app.use("/api/reizigers", reizigerRouter);
-  app.use("/api/bestemmingen", bestemmingRouter);
-  app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
-  app.use("/api/verplaatsingen", verplaatsingRouter);
+  installRoutes(app);
+  // seed();
+  // installRouters(router);
+  // app.use("/api/reizigers", reizigerRouter);
+  // app.use("/api/bestemmingen", bestemmingRouter);
+  // app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
+  // app.use("/api/verplaatsingen", verplaatsingRouter);
+  
 
   return {
     getApp() {

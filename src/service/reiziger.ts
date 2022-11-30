@@ -2,7 +2,7 @@ import { Reiziger } from "@prisma/client";
 import { $log as logger } from "ts-log-debug";
 import { createReiziger, deleteReiziger, getReizigerById, listReizigers, updateReiziger } from "../reiziger/reiziger.service";
 
-const reizigers = require('./reiziger/reiziger.service');
+// const reizigers = require('./reiziger/reiziger.service');
 
 //TODO nog aanpassen
 
@@ -13,7 +13,7 @@ const debugLog = (message: string, meta = {}) => {
 export const getAll = async () => {
   debugLog('Getting all travellers');
   const allreizigers = await listReizigers();
-  return { allreizigers };
+  return allreizigers;
 };
 
 export const getById = async (id: number) => {

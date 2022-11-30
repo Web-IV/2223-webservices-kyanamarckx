@@ -66,5 +66,8 @@ export function installVerplaatsingRouter(app: any) {
   Router.post('/', validate(createVerplaatsing.validationScheme), createVerplaatsing);
   Router.put('/:id', validate(updateVerplaatsing.validationScheme), updateVerplaatsing);
   Router.delete('/:id', validate(deleteVerplaatsing.validationScheme), deleteVerplaatsing);
-  app.use(Router.route('/verplaatsingen'));
+  // app.use(Router.route('/verplaatsingen'));
+  app.use('/verplaatsingen', Router, (req: any, res: any) => {
+    res.sendStatus(401);
+  });
 }

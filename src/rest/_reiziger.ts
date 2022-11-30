@@ -73,5 +73,8 @@ export function installReizigerRouter(app: any) {
   Router.put('/:id', validate(updateReiziger.validationScheme), updateReiziger);
   Router.delete('/:id', validate(deleteReiziger.validationScheme), deleteReiziger);
 
-  app.use(Router.route('/reizigers'));
+  // app.use(Router.route('/reizigers'));
+  app.use('/reizigers', Router, (req: any, res: any) => {
+    res.sendStatus(401);
+  });
 }

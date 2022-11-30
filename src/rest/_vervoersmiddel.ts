@@ -62,5 +62,8 @@ export function installVervoersmiddelRouter(app: any) {
   Router.post('/', validate(createVervoersmiddel.validationScheme), createVervoersmiddel);
   Router.put('/:id', validate(updateVervoersmiddel.validationScheme), updateVervoersmiddel);
   Router.delete('/:id', validate(deleteVervoersmiddel.validationScheme), deleteVervoersmiddel);
-  app.use(Router.route('/vervoersmiddelen'));
+  // app.use(Router.route('/vervoersmiddelen'));
+  app.use('/vervoersmiddelen', Router, (req: any, res: any) => {
+    res.sendStatus(401);
+  });
 }

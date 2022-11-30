@@ -94,7 +94,7 @@ export const validate = (schema: any) => {
         error: bodyErrors,
         value: bodyValue,
       } = schema.body.validate(
-        ctx.request.body,
+        ctx.request,
         JOI_OPTIONS,
       );
     
@@ -126,11 +126,14 @@ export const validate = (schema: any) => {
     }
 
     if (Object.keys(errors).length) {
-      ctx.throw(400, 'Validation failed, check details for more information', {
-        code: 'VALIDATION_FAILED',
-        details: errors,
-      });
+      ctx.status = 400;
+      ctx.body = errors;
     }
+      // ctx.body = (400, 'Validation failed, check details for more information', {
+      //   code: 'VALIDATION_FAILED',
+      //   details: errors,
+      // });
+    
 
     return next();
   };

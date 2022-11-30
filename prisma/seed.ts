@@ -27,7 +27,7 @@ type Verplaatsing = {
 
 
 
-async function seed() {
+export async function seed() {
   await Promise.all(
     getReizigers().map((reiziger) => {
       return db.reiziger.create({

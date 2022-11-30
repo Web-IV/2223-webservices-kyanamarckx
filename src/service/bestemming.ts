@@ -40,7 +40,7 @@ const debugLog = (message: string, meta = {}) => {
 export const getAll = async () =>{
   debugLog('Getting all destinations');
   const allbestemmingen = await listBestemmingen();
-  return { allbestemmingen };
+  return {allbestemmingen};
 };
 
 export const getById = async (id: number) => {

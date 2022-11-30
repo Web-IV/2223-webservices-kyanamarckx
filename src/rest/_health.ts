@@ -38,5 +38,8 @@ getVersion.validationScheme = null;
 export function installHealthRouter(app: any) {
   Router.get('/ping', validate(ping.validationScheme), ping);
   Router.get('/version', validate(getVersion.validationScheme), getVersion);
-  app.use(Router.route('/health'));
+  // app.use(Router.route('/health'));
+  app.use('/health', Router, (req: any, res: any) => {
+    res.sendStatus(401);
+  });
 }

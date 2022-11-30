@@ -1,10 +1,12 @@
 import * as Joi from 'joi';
 import express from 'express';
 const Router = express.Router();
+const app = express();
 
 const bestemmingService = require('../service/bestemming');
 
 import { validate } from './_validation';
+import { installRouters } from '.';
 
 const getAllBestemmingen: { (ctx: any): Promise<void>; validationScheme: any; } = async (ctx: any) => {
   const bestemmingen = await bestemmingService.getAll();
@@ -64,12 +66,15 @@ deleteBestemming.validationScheme = {
 };
 
 //TODO opletten om deze te importeren want in voorbeeld geen naam
-export function installBestemmingRouter(app: any) {
-  Router.get('/', validate(getAllBestemmingen.validationScheme), getAllBestemmingen);
-  Router.get('/:id', validate(getBestemmingById.validationScheme), getBestemmingById);
-  Router.post('/', validate(createBestemming.validationScheme), createBestemming);
-  Router.put('/:id', validate(updateBestemming.validationScheme), updateBestemming);
-  Router.delete('/:id', validate(deleteBestemming.validationScheme), deleteBestemming);
-
-  app.use(Router.route('/bestemmingen'));
+export function installBestemmingRouter(router: express.Router) {
+  
+  router.get('/', getAllBestemmingen);
+  router.get('/:id', validate(getBestemmingById.validationScheme), getBestemmingById);
+  router.post('/', validate(createBestemming.validationScheme), createBestemming);
+  router.put('/:id', validate(updateBestemming.validationScheme), updateBestemming);
+  router.delete('/:id', validate(deleteBestemming.validationScheme), deleteBestemming);
+  app.use('/bestemmingen', Router);
+  // app.use(Router.route('/bestemmingen'));
+  
+  //getAllBestemmingen.initialize(app);
 }

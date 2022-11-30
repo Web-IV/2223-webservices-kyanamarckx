@@ -1,6 +1,7 @@
 // import { Context } from "express-validator/src/context";
 //get package.json file
-const json = require("../package.json");
+// import * as json from '../../package.json';
+const json = require("../../package.json");
 
 // export default async function health(ctx: Response) {
 //   ctx. = {
