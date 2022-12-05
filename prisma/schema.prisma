@@ -40,7 +40,7 @@ model Verplaatsing {
   reiziger_id       Int
   bestemming_id     Int
   vervoersmiddel_id Int
-  reiziger          Reiziger       @relation(fields: [reiziger_id], references: [id])
-  bestemming        Bestemming     @relation(fields: [bestemming_id], references: [id])
-  vervoersmiddel    Vervoersmiddel @relation(fields: [vervoersmiddel_id], references: [id])
+  reiziger          Reiziger       @relation(fields: [reiziger_id], references: [id], onDelete: Cascade)
+  bestemming        Bestemming     @relation(fields: [bestemming_id], references: [id], onDelete: Cascade)
+  vervoersmiddel    Vervoersmiddel @relation(fields: [vervoersmiddel_id], references: [id], onDelete: Cascade)
 }

@@ -5,7 +5,7 @@ import { body, validationResult } from 'express-validator';
 import { $log as logger} from "ts-log-debug";
 logger.level = "debug";
 
-import * as VerplaatsingService from '../verplaatsing/verplaatsing.service';
+import * as VerplaatsingService from '../service/verplaatsing.service';
 
 export const verplaatsingRouter = express.Router();
 
@@ -19,7 +19,7 @@ verplaatsingRouter.get('/', async (req: Request, res: Response) => {
     return res.status(200).json(verplaatsingen);
   } catch (error: any) {
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  An error occurred while getting all movements`);
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting all movements`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }
@@ -37,12 +37,12 @@ verplaatsingRouter.get('/:id', async (req: Request, res: Response) => {
       return res.status(200).json(verplaatsing);
     }
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  Movement with id ${id} not found`);
+    logger.warn(`${emoji.get('round_pushpin')}  Movement with id ${id} not found`);
     logger.name = "Server";
     return res.status(404).json('Verplaatsing niet gevonden');
   } catch (error: any) {
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  An error occurred while getting movement with id ${id}`);
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting movement with id ${id}`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }
@@ -58,7 +58,7 @@ async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  An error occurred while creating a new movement`);
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while creating a new movement`);
     logger.name = "Server";
     return res.status(400).json({ errors: errors.array() });
   }
@@ -71,7 +71,7 @@ async (req: Request, res: Response) => {
     return res.status(201).json(newVerplaatsing);
   } catch (error: any) {
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  An error occurred while creating a new movement`);
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while creating a new movement`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }
@@ -107,7 +107,7 @@ async (req: Request, res: Response) => {
     return res.status(404).json('Verplaatsing niet gevonden');
   } catch (error: any) {
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  An error occurred while updating movement with id ${id}`);
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while updating movement with id ${id}`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }

@@ -1,7 +1,7 @@
 import express from 'express';
 const Router = express.Router();
 
-import * as healthService from '../service/health';
+import * as healthService from '../service/health.service';
 
 import { validate } from './_validation';
 

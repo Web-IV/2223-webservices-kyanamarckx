@@ -121,12 +121,12 @@ function getReizigers(): Array<Reiziger> {
       huisnummer: "5",
     },
     {
-      voornaam: 'Greta',
-      naam: 'Van der Linden',
+      voornaam: "Greta",
+      naam: "Van der Linden",
       geboortedatum: "1959-12-09",
-      stad: 'Lierde',
-      straat: 'Molenstraat',
-      huisnummer: '10',
+      stad: "Lierde",
+      straat: "Molenstraat",
+      huisnummer: "10",
     },
   ];
 }
