@@ -1,7 +1,7 @@
 import express from 'express';
 import emoji from 'node-emoji';
 import type { Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 import { $log as logger} from "ts-log-debug";
 logger.level = "debug";
 
@@ -10,13 +10,27 @@ import * as VerplaatsingService from '../service/verplaatsing.service';
 export const verplaatsingRouter = express.Router();
 
 // GET: list of all Verplaatsingen
-verplaatsingRouter.get('/', async (req: Request, res: Response) => {
+verplaatsingRouter.get('/', 
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.name = "Verplaatsing";
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting all movements`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const verplaatsingen = await VerplaatsingService.listVerplaatsingen();
+    if (verplaatsingen) {
+      logger.name = "Verplaatsing";
+      logger.info(`${emoji.get('round_pushpin')}  Getting all movements`);
+      logger.name = "Server";
+      return res.status(200).json(verplaatsingen);
+    }
     logger.name = "Verplaatsing";
-    logger.info(`${emoji.get('round_pushpin')}  Getting all movements`);
+    logger.warn(`${emoji.get('round_pushpin')}  No movements found`);
     logger.name = "Server";
-    return res.status(200).json(verplaatsingen);
+    return res.status(404).json('Geen verplaatsingen gevonden');
   } catch (error: any) {
     logger.name = "Verplaatsing";
     logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting all movements`);
@@ -26,8 +40,17 @@ verplaatsingRouter.get('/', async (req: Request, res: Response) => {
 });
 
 // GET: Verplaatsing by id
-verplaatsingRouter.get('/:id', async (req: Request, res: Response) => {
+verplaatsingRouter.get('/:id', 
+param("id").isInt({ min: 1 }).withMessage("id must be a positive integer"),
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
+  if (!errors.isEmpty()) {
+    logger.name = "Verplaatsing";
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while updating movement with id ${id}`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const verplaatsing = await VerplaatsingService.getVerplaatsingById(id);
     if (verplaatsing) {
@@ -51,9 +74,9 @@ verplaatsingRouter.get('/:id', async (req: Request, res: Response) => {
 //POST: create a new Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
 verplaatsingRouter.post("/",
-body("reiziger_id").isInt(),
-body("bestemming_id").isInt(),
-body("vervoersmiddel_id").isInt(),
+body("reiziger_id").isInt({ min: 1 }).withMessage("reiziger_id must be a positive integer"),
+body("bestemming_id").isInt({ min: 1 }).withMessage("bestemming_id must be a positive integer"),
+body("vervoersmiddel_id").isInt({ min: 1 }).withMessage("vervoersmiddel_id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -80,9 +103,10 @@ async (req: Request, res: Response) => {
 // PUT: update a Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
 verplaatsingRouter.put("/:id",
-body("reiziger_id").isInt(),
-body("bestemming_id").isInt(),
-body("vervoersmiddel_id").isInt(),
+param("id").isInt({ min: 1 }).withMessage("id must be a positive integer"),
+body("reiziger_id").isInt({ min: 1 }).withMessage("reiziger_id must be a positive integer"),
+body("bestemming_id").isInt({ min: 1 }).withMessage("bestemming_id must be a positive integer"),
+body("vervoersmiddel_id").isInt({ min: 1 }).withMessage("vervoersmiddel_id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
@@ -114,8 +138,17 @@ async (req: Request, res: Response) => {
 });
 
 // DELETE: delete a Verplaatsing
-verplaatsingRouter.delete("/:id", async (req: Request, res: Response) => {
+verplaatsingRouter.delete("/:id", 
+param("id").isInt({ min: 1 }).withMessage("id must be a positive integer"),
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
+  if (!errors.isEmpty()) {
+    logger.name = "Verplaatsing";
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while updating movement with id ${id}`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     await VerplaatsingService.deleteVerplaatsing(id);
     logger.name = "Verplaatsing";
