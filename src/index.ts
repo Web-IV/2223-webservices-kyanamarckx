@@ -8,7 +8,7 @@ export async function main() {
     // const PORT: number = parseInt(process.env.PORT as string, 10);
     const server = await createServer();
     await server.start();
-    await server.getApp();
+    server.getApp();
 
     // console.log(`Server started on port ${PORT}`);
     
@@ -32,5 +32,4 @@ export async function main() {
   }
 }
 
-// Dit moet je in commentaar zetten om de tests te runnen want anders krijg je "address already in use" error
 main();
