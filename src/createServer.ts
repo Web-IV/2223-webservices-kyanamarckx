@@ -26,10 +26,11 @@ if (!process.env.PORT) {
 logger.level = 'debug';
 logger.name = 'Server';
 
-export async function createServer() {
+
+export default async function createServer() {
   const PORT: number = parseInt(process.env.PORT as string, 10);
   const app = express();
-  const approute: express.Application = express();
+  // const approute: express.Application = express();
   // app.use(express.urlencoded({extended: true}));
   app.use(express.json());
   
@@ -118,7 +119,6 @@ export async function createServer() {
   // app.use("/api/bestemmingen", bestemmingRouter);
   // app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
   // app.use("/api/verplaatsingen", verplaatsingRouter);
-  
 
   return {
     getApp() {
@@ -144,5 +144,5 @@ export async function createServer() {
       });
     }
   };
-}
+};
 
