@@ -64,7 +64,7 @@ it("GET /bestemmingen/:id with non-existing id", async () => {
 
 
 
-//// TESTS FOR POST REQUESTS:
+// TESTS FOR POST REQUESTS:
 
 it("POST /bestemmingen with correct body", async () => {
   const app = (await server).getApp();
@@ -95,9 +95,9 @@ it("POST /bestemmingen with incorrect body", async () => {
 
 
 
-//// TESTS FOR PUT REQUESTS:
+// TESTS FOR PUT REQUESTS:
 
-it("PUT /bestemmingen/:id with correct id and body", async () => {
+it("PUT /bestemmingen/:id with correct id and correct body", async () => {
   const app = (await server).getApp();
 
   const testBestemmingUpdate = {
@@ -185,7 +185,7 @@ it("PUT /bestemmingen/:id with non-existing id and correct body", async () => {
 
 
 
-//// TESTS FOR DELETE REQUESTS:
+// TESTS FOR DELETE REQUESTS:
 
 it("DELETE /bestemmingen/:id with correct id", async () => {
   const app = (await server).getApp();

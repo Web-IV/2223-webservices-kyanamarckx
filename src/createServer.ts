@@ -128,7 +128,8 @@ export default async function createServer() {
     start() {
       return new Promise<void>((resolve) => {
         const port = process.env.PORT || 8000;
-        app.listen(port);
+        //FOR RUNNING ALL TESTS AT ONCE: remove the 'port' from listen(port)
+        app.listen();
         logger.info(`${emoji.get("sun_with_face")} Server running on http://localhost:${port}`);
         resolve();
       });
