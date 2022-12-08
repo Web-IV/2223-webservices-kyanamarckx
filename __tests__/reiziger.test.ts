@@ -129,7 +129,16 @@ it("PUT /reizigers/:id with incorrect id and correct body", async () => {
   const server = await createServer();
   const app = server.getApp();
 
-  const response = await request(app).put("/api/reizigers/-10").send(testReiziger);
+  const testReizigerUpdate = {
+    voornaam: "TestVoornaamUpdate",
+    naam: "TestNaamUpdate",
+    geboortedatum: "2021-01-01",
+    straat: "TestStraatUpdate",
+    stad: "TestStadUpdate",
+    huisnummer: "2",
+  }
+
+  const response = await request(app).put("/api/reizigers/-10").send(testReizigerUpdate);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({"errors": [{"location": "params", "msg": "Id must be a positive integer", "param": "id", "value": "-10",},],});
 });
@@ -190,7 +199,16 @@ it("PUT /reizigers/:id with non-existing id and correct body", async () => {
   const server = await createServer();
   const app = server.getApp();
 
-  const response = await request(app).put("/api/reizigers/10").send(testReiziger);
+  const testReizigerUpdate = {
+    voornaam: "TestVoornaamUpdate",
+    naam: "TestNaamUpdate",
+    geboortedatum: "2021-01-01",
+    straat: "TestStraatUpdate",
+    stad: "TestStadUpdate",
+    huisnummer: "2",
+  }
+
+  const response = await request(app).put("/api/reizigers/10").send(testReizigerUpdate);
   expect(response.status).toEqual(500);
   expect(response.body).toEqual("\nInvalid `prisma.reiziger.update()` invocation:\n\n\nAn operation failed because it depends on one or more records that were required but not found. Record to update not found.");
 });
