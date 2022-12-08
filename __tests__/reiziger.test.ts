@@ -1,7 +1,6 @@
 import createServer from "../src/createServer";
-import { main } from "../src/index";
 import request from "supertest";
-import { expect, jest, test } from "@jest/globals";
+import { expect } from "@jest/globals";
 
 const testReiziger = {
   voornaam: "TestVoornaam",
@@ -12,17 +11,22 @@ const testReiziger = {
   huisnummer: "2",
 }
 
+const server = createServer();
+
 beforeAll(async () => {
-  const server = await createServer();
-  await server.start();
+  await (await server).start();
 });
+
+afterAll(async () => {
+  await (await server).stop();
+});
+
 
 
 // TESTS FOR GET REQUESTS:
 
 it("GET /reizigers", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/reizigers");
   expect(response.status).toEqual(200);
@@ -35,8 +39,7 @@ it("GET /reizigers", async () => {
 
 
 it("GET /reizigers/:id with correct id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/reizigers/1");
   expect(response.status).toEqual(200);
@@ -45,8 +48,7 @@ it("GET /reizigers/:id with correct id", async () => {
 
 
 it("GET /reizigers/:id with incorrect id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/reizigers/-10");
   expect(response.status).toEqual(400);
@@ -55,8 +57,7 @@ it("GET /reizigers/:id with incorrect id", async () => {
 
 
 it("GET /reizigers/:id with non-existing id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/reizigers/10");
   expect(response.status).toEqual(404);
@@ -65,11 +66,10 @@ it("GET /reizigers/:id with non-existing id", async () => {
 
 
 
- // TESTS FOR POST REQUESTS:
+// TESTS FOR POST REQUESTS:
 
 it("POST /reizigers with correct body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).post("/api/reizigers").send(testReiziger);
   expect(response.status).toEqual(201);
@@ -79,8 +79,7 @@ it("POST /reizigers with correct body", async () => {
 
 
 it("POST /reizigers with incorrect body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).post("/api/reizigers").send({});
   expect(response.status).toEqual(400);
@@ -107,8 +106,7 @@ it("POST /reizigers with incorrect body", async () => {
 // TESTS FOR PUT REQUESTS:
 
 it("PUT /reizigers/:id with correct id and body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testReizigerUpdate = {
     voornaam: "TestVoornaamUpdate",
@@ -126,8 +124,7 @@ it("PUT /reizigers/:id with correct id and body", async () => {
 
 
 it("PUT /reizigers/:id with incorrect id and correct body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testReizigerUpdate = {
     voornaam: "TestVoornaamUpdate",
@@ -145,8 +142,7 @@ it("PUT /reizigers/:id with incorrect id and correct body", async () => {
 
 
 it("PUT /reizigers/:id with correct id and incorrect body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).put("/api/reizigers/30").send({});
   expect(response.status).toEqual(400);
@@ -170,8 +166,7 @@ it("PUT /reizigers/:id with correct id and incorrect body", async () => {
 
 
 it("PUT /reizigers/:id with incorrect id and incorrect body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).put("/api/reizigers/-10").send({});
   expect(response.status).toEqual(400);
@@ -196,8 +191,7 @@ it("PUT /reizigers/:id with incorrect id and incorrect body", async () => {
 
 
 it("PUT /reizigers/:id with non-existing id and correct body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testReizigerUpdate = {
     voornaam: "TestVoornaamUpdate",
@@ -218,8 +212,7 @@ it("PUT /reizigers/:id with non-existing id and correct body", async () => {
 // TESTS FOR DELETE REQUESTS:
 
 it("DELETE /reizigers/:id with correct id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).delete("/api/reizigers/34");
   expect(response.status).toEqual(204);
@@ -228,8 +221,7 @@ it("DELETE /reizigers/:id with correct id", async () => {
 
 
 it("DELETE /reizigers/:id with incorrect id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).delete("/api/reizigers/-10");
   expect(response.status).toEqual(400);

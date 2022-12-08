@@ -8,17 +8,22 @@ const testBestemming = {
   postcode: "012345",
 }
 
+const server = createServer();
+
 beforeAll(async () => {
-  const server = await createServer();
-  await server.start();
+  (await server).start();
 });
+
+afterAll(async () => {
+  (await server).stop();
+});
+
 
 
 // TESTS FOR GET REQUESTS:
 
 it("GET /bestemmingen", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/bestemmingen");
   expect(response.status).toEqual(200);
@@ -32,8 +37,7 @@ it("GET /bestemmingen", async () => {
 
 
 it("GET /bestemmingen/:id with correct id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/bestemmingen/1");
   expect(response.status).toEqual(200);
@@ -42,8 +46,7 @@ it("GET /bestemmingen/:id with correct id", async () => {
 
 
 it("GET /bestemmingen/:id with incorrect id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/bestemmingen/abc");
   expect(response.status).toEqual(400);
@@ -52,8 +55,7 @@ it("GET /bestemmingen/:id with incorrect id", async () => {
 
 
 it("GET /bestemmingen/:id with non-existing id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).get("/api/bestemmingen/10");
   expect(response.status).toEqual(404);
@@ -65,8 +67,7 @@ it("GET /bestemmingen/:id with non-existing id", async () => {
 //// TESTS FOR POST REQUESTS:
 
 it("POST /bestemmingen with correct body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).post("/api/bestemmingen").send(testBestemming);
   const bestemmingId = response.body.id;
@@ -76,8 +77,7 @@ it("POST /bestemmingen with correct body", async () => {
 
 
 it("POST /bestemmingen with incorrect body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).post("/api/bestemmingen").send({});
   expect(response.status).toEqual(400);
@@ -98,8 +98,7 @@ it("POST /bestemmingen with incorrect body", async () => {
 //// TESTS FOR PUT REQUESTS:
 
 it("PUT /bestemmingen/:id with correct id and body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testBestemmingUpdate = {
     land: "LandTestUpdate",
@@ -114,8 +113,7 @@ it("PUT /bestemmingen/:id with correct id and body", async () => {
 
 
 it("PUT /bestemmingen/:id with incorrect id and correct body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testBestemmingUpdate = {
     land: "LandTestUpdate",
@@ -130,8 +128,7 @@ it("PUT /bestemmingen/:id with incorrect id and correct body", async () => {
 
 
 it("PUT /bestemmingen/:id with correct id and incorrect body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testBestemmingFout = {
     land: "",
@@ -152,8 +149,7 @@ it("PUT /bestemmingen/:id with correct id and incorrect body", async () => {
 
 
 it("PUT /bestemmingen/:id with incorrect id and incorrect body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testBestemmingFout = {
     land: "",
@@ -174,8 +170,7 @@ it("PUT /bestemmingen/:id with incorrect id and incorrect body", async () => {
 
 
 it("PUT /bestemmingen/:id with non-existing id and correct body", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const testBestemmingUpdate = {
     land: "LandTestUpdate",
@@ -193,18 +188,16 @@ it("PUT /bestemmingen/:id with non-existing id and correct body", async () => {
 //// TESTS FOR DELETE REQUESTS:
 
 it("DELETE /bestemmingen/:id with correct id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
-  const response = await request(app).delete("/api/bestemmingen/8");
+  const response = await request(app).delete("/api/bestemmingen/11");
   expect(response.status).toEqual(204);
   expect(response.body).toEqual({});
 });
 
 
 it("DELETE /bestemmingen/:id with incorrect id", async () => {
-  const server = await createServer();
-  const app = server.getApp();
+  const app = (await server).getApp();
 
   const response = await request(app).delete("/api/bestemmingen/abc");
   expect(response.status).toEqual(400);
