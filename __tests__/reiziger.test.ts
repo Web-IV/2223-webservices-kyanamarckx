@@ -116,7 +116,7 @@ it("PUT /reizigers/:id with correct id and body", async () => {
     stad: "TestStadUpdate",
     huisnummer: "2",
   }
-  const response = await request(app).put("/api/reizigers/30").send(testReizigerUpdate);
+  const response = await request(app).put("/api/reizigers/46").send(testReizigerUpdate);
   expect(response.status).toEqual(200);
   const reizigerId = response.body.id;
   expect(response.body).toEqual({"geboortedatum": "2021-01-01", "huisnummer": "2", "id": reizigerId, "naam": "TestNaamUpdate", "stad": "TestStadUpdate", "straat": "TestStraatUpdate", "voornaam": "TestVoornaamUpdate"});

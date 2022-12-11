@@ -41,7 +41,7 @@ async (req: Request, res: Response) => {
 
 // GET: Verplaatsing by id
 verplaatsingRouter.get('/:id', 
-param("id").isInt({ min: 1 }).withMessage("id must be a positive integer"),
+param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
@@ -103,7 +103,7 @@ async (req: Request, res: Response) => {
 // PUT: update a Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
 verplaatsingRouter.put("/:id",
-param("id").isInt({ min: 1 }).withMessage("id must be a positive integer"),
+param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 body("reiziger_id").isInt({ min: 1 }).withMessage("reiziger_id must be a positive integer"),
 body("bestemming_id").isInt({ min: 1 }).withMessage("bestemming_id must be a positive integer"),
 body("vervoersmiddel_id").isInt({ min: 1 }).withMessage("vervoersmiddel_id must be a positive integer"),
@@ -139,7 +139,7 @@ async (req: Request, res: Response) => {
 
 // DELETE: delete a Verplaatsing
 verplaatsingRouter.delete("/:id", 
-param("id").isInt({ min: 1 }).withMessage("id must be a positive integer"),
+param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
