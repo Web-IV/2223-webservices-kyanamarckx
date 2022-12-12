@@ -7,6 +7,7 @@ type Reiziger = {
   stad: string;
   straat: string;
   huisnummer: string;
+  auth0id: string;
 };
 
 type Bestemming = {
@@ -38,6 +39,7 @@ export async function seed() {
           stad: reiziger.stad,
           straat: reiziger.straat,
           huisnummer: reiziger.huisnummer,
+          auth0id: reiziger.auth0id,
         },
       });
     })
@@ -111,6 +113,7 @@ function getReizigers(): Array<Reiziger> {
       stad: "Lierde",
       straat: "Keistraat",
       huisnummer: "1C",
+      auth0id: "unknown",
     },
     {
       voornaam: "Robin",
@@ -119,6 +122,7 @@ function getReizigers(): Array<Reiziger> {
       stad: "Aalst",
       straat: "Hugo Lefèvrestraat",
       huisnummer: "5",
+      auth0id: "unknown",
     },
     {
       voornaam: "Greta",
@@ -127,6 +131,7 @@ function getReizigers(): Array<Reiziger> {
       stad: "Lierde",
       straat: "Molenstraat",
       huisnummer: "10",
+      auth0id: "unknown",
     },
   ];
 }

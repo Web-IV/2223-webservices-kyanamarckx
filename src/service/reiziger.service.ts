@@ -8,6 +8,7 @@ type Reiziger = {
   stad: string;
   straat: string;
   huisnummer: string;
+  auth0id: string;
 };
 
 export const listReizigers = async (): Promise<Reiziger[]> => {
@@ -20,6 +21,7 @@ export const listReizigers = async (): Promise<Reiziger[]> => {
       stad: true,
       straat: true,
       huisnummer: true,
+      auth0id: true,
     },
   });
 };
@@ -43,7 +45,7 @@ export const getReizigerById = async(id: number): Promise<Reiziger | null> => {
 
 export const createReiziger = async(reiziger: Omit<Reiziger, "id">): 
 Promise<Reiziger> => {
-  const { voornaam, naam, geboortedatum, stad, straat, huisnummer } = reiziger
+  const { voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id } = reiziger
   return db.reiziger.create({
     data: {
       voornaam,
@@ -52,6 +54,7 @@ Promise<Reiziger> => {
       stad,
       straat,
       huisnummer,
+      auth0id,
     },
     select: {
       id: true,
@@ -61,13 +64,14 @@ Promise<Reiziger> => {
       stad: true,
       straat: true,
       huisnummer: true,
+      auth0id: true,
     },
   });
 };
 
 export const updateReiziger = async(id: number, reiziger: Omit<Reiziger, "id">):
 Promise<Reiziger> => {
-  const { voornaam, naam, geboortedatum, stad, straat, huisnummer } = reiziger
+  const { voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id } = reiziger
   return db.reiziger.update({
     where: {
       id,
@@ -79,6 +83,7 @@ Promise<Reiziger> => {
       stad,
       straat,
       huisnummer,
+      auth0id,
     },
     select: {
       id: true,
@@ -88,6 +93,7 @@ Promise<Reiziger> => {
       stad: true,
       straat: true,
       huisnummer: true,
+      auth0id: true
     },
   });
 };

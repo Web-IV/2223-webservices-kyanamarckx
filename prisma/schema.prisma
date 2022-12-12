@@ -18,6 +18,7 @@ model Reiziger {
   stad           String         @db.VarChar(255)
   straat         String         @db.VarChar(255)
   huisnummer     String         @db.VarChar(5)
+  auth0id        String         @db.VarChar(255)
   Verplaatsingen Verplaatsing[]
 }
 
