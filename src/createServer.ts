@@ -11,6 +11,7 @@ import { vervoersmiddelRouter } from './vervoersmiddel/vervoersmiddel.router';
 import { verplaatsingRouter } from './verplaatsing/verplaatsing.router';
 import { seed } from '../prisma/seed';
 import { installRouters } from './rest';
+import { checkJwtToken } from './core/auth';
 import { ServiceError } from './core/serviceError';
 import { installRoutes } from './restWIP/index';
 import config from 'config';
@@ -33,7 +34,20 @@ export default async function createServer() {
   // const approute: express.Application = express();
   // app.use(express.urlencoded({extended: true}));
   app.use(express.json());
-  
+  app.use(checkJwtToken());
+
+  // add text with logger if token is incorrect and user is undefined
+
+
+
+  app.use(async (ctx: any, req: any, next: NextFunction) => {
+    logger.debug(`Token: ${ctx.headers.authorization}`);
+    logger.debug(`Current user: ${JSON.stringify(ctx.auth)}`);
+    logger.debug(`Errors: ${ctx.jwtOriginalError}`);
+
+    next();
+  });
+ 
   app.use(async(ctx: any, req: any, next: NextFunction) => {
     try {
       next();
@@ -108,7 +122,9 @@ export default async function createServer() {
       });
       throw error;
     }
-  });
+  });  
+
+  
     
   app.use(cors());
   app.use(express.json());
@@ -129,7 +145,7 @@ export default async function createServer() {
       return new Promise<void>((resolve) => {
         const port = process.env.PORT || 8000;
         //FOR RUNNING ALL TESTS AT ONCE: remove the 'port' from listen(port)
-        app.listen();
+        app.listen(port);
         logger.info(`${emoji.get("sun_with_face")} Server running on http://localhost:${port}`);
         resolve();
       });
