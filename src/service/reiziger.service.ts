@@ -11,7 +11,32 @@ type Reiziger = {
   auth0id: string;
 };
 
-export const listReizigers = async (): Promise<Reiziger[]> => {
+export const register = (reiziger: Omit<Reiziger, "id">) => {
+  const { voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id } = reiziger
+  return db.reiziger.create({
+    data: {
+      voornaam,
+      naam,
+      geboortedatum,
+      stad,
+      straat,
+      huisnummer,
+      auth0id,
+    },
+    select: {
+      id: true,
+      voornaam: true,
+      naam: true,
+      geboortedatum: true,
+      stad: true,
+      straat: true,
+      huisnummer: true,
+      auth0id: true,
+    },
+  });
+}
+
+export const getReizigers = async (): Promise<Reiziger[]> => {
   return db.reiziger.findMany({
     select: {
       id: true,
@@ -43,18 +68,10 @@ export const getReizigerById = async(id: number): Promise<Reiziger | null> => {
   });
 };
 
-export const createReiziger = async(reiziger: Omit<Reiziger, "id">): 
-Promise<Reiziger> => {
-  const { voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id } = reiziger
-  return db.reiziger.create({
-    data: {
-      voornaam,
-      naam,
-      geboortedatum,
-      stad,
-      straat,
-      huisnummer,
-      auth0id,
+export const getReizigerByAuth0id = async (auth0id: string): Promise<Reiziger[]> => {
+  return db.reiziger.findMany({
+    where: {
+      auth0id: auth0id,
     },
     select: {
       id: true,
@@ -68,6 +85,32 @@ Promise<Reiziger> => {
     },
   });
 };
+
+// export const createReiziger = async(reiziger: Omit<Reiziger, "id">): 
+// Promise<Reiziger> => {
+//   const { voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id } = reiziger
+//   return db.reiziger.create({
+//     data: {
+//       voornaam,
+//       naam,
+//       geboortedatum,
+//       stad,
+//       straat,
+//       huisnummer,
+//       auth0id,
+//     },
+//     select: {
+//       id: true,
+//       voornaam: true,
+//       naam: true,
+//       geboortedatum: true,
+//       stad: true,
+//       straat: true,
+//       huisnummer: true,
+//       auth0id: true,
+//     },
+//   });
+// };
 
 export const updateReiziger = async(id: number, reiziger: Omit<Reiziger, "id">):
 Promise<Reiziger> => {

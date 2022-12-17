@@ -113,7 +113,7 @@ function getReizigers(): Array<Reiziger> {
       stad: "Lierde",
       straat: "Keistraat",
       huisnummer: "1C",
-      auth0id: "unknown",
+      auth0id: "unknown1",
     },
     {
       voornaam: "Robin",
@@ -122,7 +122,7 @@ function getReizigers(): Array<Reiziger> {
       stad: "Aalst",
       straat: "Hugo Lefèvrestraat",
       huisnummer: "5",
-      auth0id: "unknown",
+      auth0id: "sJUibowqneIEBIvxyeLQd869uivdTHuP@clients",
     },
     {
       voornaam: "Greta",
@@ -131,7 +131,7 @@ function getReizigers(): Array<Reiziger> {
       stad: "Lierde",
       straat: "Molenstraat",
       huisnummer: "10",
-      auth0id: "unknown",
+      auth0id: "unknown3",
     },
   ];
 }

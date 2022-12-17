@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction } from 'express';
 import emoji from 'node-emoji';
 import type { Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
@@ -6,6 +6,7 @@ import { $log as logger} from "ts-log-debug";
 logger.level = "debug";
 
 import * as BestemmingService from '../service/bestemming.service';
+import { addUserInfo, hasPermission } from '../core/auth';
 
 export const bestemmingRouter = express.Router();
 
@@ -78,27 +79,48 @@ body("land").isString().isLength({ min: 1, max: 255 }).withMessage("Land must be
 body("stad").isString().isLength({ min: 1, max: 255 }).withMessage("Stad must be between 1 and 255 characters"),
 body("postcode").isString().isLength({ min: 1, max: 10 }).withMessage("Postcode must be between 1 and 10 characters"),
 async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
+  
+  // const user = ctx.auth.scope;
+  // logger.debug(user);
+  // const join = user;
+  // logger.debug(join);
+  // const response = hasPermission("write");
+  // logger.debug(response);
+  // if(response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
     logger.name = "Bestemming";
     logger.error(`${emoji.get('desert_island')}  An error occured while creating a new destination`);
     logger.name = "Server";
     return res.status(400).json({ errors: errors.array() });
-  }
-  try {
+    }
+    try {
     const bestemming = req.body;
+    // const reiziger = await UserService.getUserByAuth0id(ctx.auth.sub);
+    // reizigerId = reiziger[0-36].id;
+    
     const newBestemming = await BestemmingService.createBestemming(bestemming);
     logger.name = "Bestemming";
     logger.info(`${emoji.get('desert_island')}  Creating a new destination`);
     logger.name = "Server";
     return res.status(201).json(newBestemming);
-  } catch (error: any) {
+    } catch (error: any) {
+    // await addUserInfo(ctx);
+    // const name = ctx.auth.name;
+    // const auth0id = ctx.auth.sub;
+    // const id = Math.floor(Math.random() * 1000);
+    // reizigerId = await UserService.register(
+    //   id,
+    //   name,
+    //   auth0id,
+    // );
     logger.name = "Bestemming";
     logger.error(`${emoji.get('desert_island')}  An error occured while creating a new destination`);
     logger.name = "Server";
     return res.status(500).json(error.message);
-  }
-});
+    }
+  }  
+);
 
 // PUT: update a Bestemming
 // params: land, stad, postcode
@@ -107,7 +129,8 @@ param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 body("land").isString().isLength({ min: 1, max: 255 }).withMessage("Land must be between 1 and 255 characters"),
 body("stad").isString().isLength({ min: 1, max: 255 }).withMessage("Stad must be between 1 and 255 characters"),
 body("postcode").isString().isLength({ min: 1, max: 10 }).withMessage("Postcode must be between 1 and 10 characters"),
-async (req: Request, res: Response) => {
+async (req: Request, res: Response, ctx: any) => {
+  // const response = hasPermission(ctx, "write");
   const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
   if (!errors.isEmpty()) {

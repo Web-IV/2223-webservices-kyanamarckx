@@ -1,7 +1,7 @@
 import { db } from "../utils/db.server";
 
 export type Bestemming = {
-  id: number;
+  // id: number;
   land: string;
   stad: string;
   postcode: string;
