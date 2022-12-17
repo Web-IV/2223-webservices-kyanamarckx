@@ -1,20 +1,11 @@
-import express from 'express';
-const Router = express.Router();
+import { bestemmingRouter } from "./bestemming";
+import { reizigerRouter } from "./reiziger";
+import { vervoersmiddelRouter } from "./vervoersmiddel";
+import { verplaatsingRouter } from "./verplaatsing";
 
-
-import { installReizigerRouter } from './_reiziger';
-import { installBestemmingRouter } from './_bestemming';
-import { installVervoersmiddelRouter } from './_vervoersmiddel';
-import { installVerplaatsingRouter } from './_verplaatsing';
-import { installHealthRouter } from './_health';
-
-export function installRouters(router: express.Router) {
-  const app = express();
-  installReizigerRouter(router);
-  installBestemmingRouter(router);
-  installVervoersmiddelRouter(router);
-  installVerplaatsingRouter(router);
-  installHealthRouter(router);
-
-  app.use('/api', router);
-}
+export const installRoutes = (app: any) => {
+  app.use("/api/reizigers", reizigerRouter);
+  app.use("/api/bestemmingen", bestemmingRouter);
+  app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
+  app.use("/api/verplaatsingen", verplaatsingRouter);
+};

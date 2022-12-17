@@ -5,18 +5,10 @@ import emoji from 'node-emoji';
 
 import { $log as logger } from "ts-log-debug";
 
-import { reizigerRouter } from './reiziger/reiziger.router';
-import { bestemmingRouter } from './bestemming/bestemming.router';
-import { vervoersmiddelRouter } from './vervoersmiddel/vervoersmiddel.router';
-import { verplaatsingRouter } from './verplaatsing/verplaatsing.router';
-import { seed } from '../prisma/seed';
-import { installRouters } from './rest';
 import { checkJwtToken, hasPermission } from './core/auth';
 import { ServiceError } from './core/serviceError';
-import { installRoutes } from './restWIP/index';
+import { installRoutes } from './rest/index';
 
-import * as UserService from './service/user.service';
-import * as ReizigerService from './service/reiziger.service';
 import config from 'config';
 
 const NODE_ENV = config.get('env');
@@ -35,8 +27,6 @@ const app = express();
 export default async function createServer() {
   const PORT: number = parseInt(process.env.PORT as string, 10);
   
-  // const approute: express.Application = express();
-  // app.use(express.urlencoded({extended: true}));
   app.use(express.json());
   app.use(checkJwtToken());
   app.use(async (ctx: any, req: any, next: NextFunction) => {
@@ -141,23 +131,6 @@ export default async function createServer() {
   app.use(async (ctx: any, res: any, next: NextFunction) => {
     logger.info(`${emoji.get('rocket')} ${ctx.method} ${ctx.url}`);
 
-
-    const getStatusEmoji = () => {
-      if (ctx.status >= 500) {
-        return emoji.get('boom');
-      }
-      if (ctx.status >= 400) {
-        return emoji.get('poop');
-      }
-      if (ctx.status >= 300) {
-        return emoji.get('eyes');
-      }
-      if (ctx.status >= 200) {
-        return emoji.get('rocket');
-      }
-      return emoji.get('rewind');
-    };
-
     try {
       next();
     } catch (error) {
@@ -174,11 +147,6 @@ export default async function createServer() {
   app.use(express.json());
   installRoutes(app);
   // seed();
-  // installRouters(router);
-  // app.use("/api/reizigers", reizigerRouter);
-  // app.use("/api/bestemmingen", bestemmingRouter);
-  // app.use("/api/vervoersmiddelen", vervoersmiddelRouter);
-  // app.use("/api/verplaatsingen", verplaatsingRouter);
 
   return {
     getApp() {
@@ -187,10 +155,9 @@ export default async function createServer() {
 
     start() {
       return new Promise<void>((resolve) => {
-        const port = process.env.PORT || 8000;
         //FOR RUNNING ALL TESTS AT ONCE: remove the 'port' from listen(port)
-        app.listen(port);
-        logger.info(`${emoji.get("sun_with_face")} Server running on http://localhost:${port}`);
+        app.listen(PORT);
+        logger.info(`${emoji.get("sun_with_face")} Server running on http://localhost:${PORT}`);
         resolve();
       });
     },
@@ -198,7 +165,7 @@ export default async function createServer() {
     async stop() {
       app.removeAllListeners();
       new Promise<void>((resolve) => {
-        app.listen().close(() => {
+        app.listen(PORT).close(() => {
           logger.info(`${emoji.get("waning_crescent_moon")} Server stopped`);
           resolve();
         });

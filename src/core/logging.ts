@@ -89,9 +89,9 @@
 // }
 
 
-import { $log } from "ts-log-debug";
+// import { $log } from "ts-log-debug";
 
-export function getLogger() {
-  $log.level = "debug";
-  $log.name = "Server";
-}
+// export function getLogger() {
+//   $log.level = "debug";
+//   $log.name = "Server";
+// }

@@ -129,7 +129,7 @@ param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 body("land").isString().isLength({ min: 1, max: 255 }).withMessage("Land must be between 1 and 255 characters"),
 body("stad").isString().isLength({ min: 1, max: 255 }).withMessage("Stad must be between 1 and 255 characters"),
 body("postcode").isString().isLength({ min: 1, max: 10 }).withMessage("Postcode must be between 1 and 10 characters"),
-async (req: Request, res: Response, ctx: any) => {
+async (req: Request, res: Response) => {
   // const response = hasPermission(ctx, "write");
   const errors = validationResult(req);
   const id: number = parseInt(req.params.id, 10);
