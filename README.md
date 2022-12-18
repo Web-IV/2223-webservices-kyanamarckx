@@ -75,6 +75,8 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 - `npm install`
 
+- `npm run dev`
+
 - .env: 
   `DATABASE_URL="mysql://root:root@localhost:3306/vakantieDB"`
   `PORT=8000`
