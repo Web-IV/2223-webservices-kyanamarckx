@@ -73,20 +73,21 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 > Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
 
-<!-- - `yarn add @koa/cors` -->
-<!-- TODO winston -->
-- `npm i express dotenv cors express-validator @prisma/client`
-- `npm i -D typescript @types/node @types/express @types/dotenv @types/cors`
-- `npm install -g ts-node`
-- `npm i -D @babel/core @babel/preset-env @babel/preset-typescript babel-jest jest typescript`
-- `npm i -D @types/jest`
-- `npm i --save typescript-logging`
-- `npm i --save typescript-logging-category-style`
-- `npm i winston`
-- `npm i ts-log-debug`
-- `npm i source-map-support`
-- `npm i --save node-emoji`
+- `npm install`
 
+- .env: 
+  `DATABASE_URL="mysql://root:root@localhost:3306/vakantieDB"`
+  `PORT=8000`
+
+  `NODE_ENV=production`
+
+  `AUTH_ISSUER='https://dev-tssp2kyfaa2lyu1y.us.auth0.com/'`
+
+  `AUTH_AUDIENCE='https://vacay.kyana-hogent.be'`
+
+  `AUTH_JWKS_URI='https://dev-tssp2kyfaa2lyu1y.us.auth0.com/.well-known/jwks.json'`
+
+  `AUTH_USER_INFO="https://dev-tssp2kyfaa2lyu1y.us.auth0.com/userinfo"`
 
 ## Testen
 
