@@ -41,7 +41,12 @@
     "test": "jest --watchAll --verbose --detectOpenHandles",
     "test:coverage": "npm test -coverage",
     "dev": "nodemon src/index.ts",
-    "start": "npx env-cmd nodemon src/index.ts"
+    "begin": "npx env-cmd nodemon src/index.ts",
+    "push": "npx prisma db push",
+    "seed": "npx prisma db seed",
+    "generate": "npx prisma generate",
+    "reset": "npx prisma migrate reset --force --skip-seed",
+    "start": "npm run reset && npm run push && npm run seed && npm run begin"
   },
   "repository": {
     "type": "git",
