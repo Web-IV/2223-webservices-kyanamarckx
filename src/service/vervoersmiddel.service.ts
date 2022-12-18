@@ -14,6 +14,10 @@ export const listVervoersmiddelen = async (): Promise<Vervoersmiddel[]> => {
   });
 };
 
+export const getVervoersmiddelCount = async (): Promise<number> => {
+  return db.vervoersmiddel.count();
+};
+
 export const getVervoersmiddelById = async(id: number): Promise<Vervoersmiddel | null> => {
   return db.vervoersmiddel.findUnique({
     where: {

@@ -37,6 +37,7 @@ export const register = (reiziger: Omit<Reiziger, "id">) => {
 }
 
 export const getReizigers = async (): Promise<Reiziger[]> => {
+  //get count and select all reizigers
   return db.reiziger.findMany({
     select: {
       id: true,
@@ -49,6 +50,10 @@ export const getReizigers = async (): Promise<Reiziger[]> => {
       auth0id: true,
     },
   });
+};
+
+export const getReizigerCount = async (): Promise<number> => {
+  return db.reiziger.count();
 };
 
 export const getReizigerById = async(id: number): Promise<Reiziger | null> => {

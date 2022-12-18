@@ -27,11 +27,13 @@ async (req: Request, res: Response) => {
   }
   try {
     const verplaatsingen = await VerplaatsingService.listVerplaatsingen();
-    if (verplaatsingen) {
+    const count = await VerplaatsingService.getVerplaatsingCount();
+    if (verplaatsingen && count) {
       logger.name = "Verplaatsing";
       logger.info(`${emoji.get('round_pushpin')}  Getting all movements`);
       logger.name = "Server";
-      return res.status(200).json(verplaatsingen);
+      const verplaatsingenWithCount = { count, verplaatsingen };
+      return res.status(200).json(verplaatsingenWithCount);
     }
     logger.name = "Verplaatsing";
     logger.warn(`${emoji.get('round_pushpin')}  No movements found`);
@@ -40,6 +42,38 @@ async (req: Request, res: Response) => {
   } catch (error: any) {
     logger.name = "Verplaatsing";
     logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting all movements`);
+    logger.name = "Server";
+    return res.status(500).json(error.message);
+  }
+});
+
+// GET: Verplaatsing count
+verplaatsingRouter.get('/count',
+checkJwt,
+checkScopes,
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.name = "Verplaatsing";
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting movement count`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const count = await VerplaatsingService.getVerplaatsingCount();
+    if (count) {
+      logger.name = "Verplaatsing";
+      logger.info(`${emoji.get('round_pushpin')}  Getting count of all movements`);
+      logger.name = "Server";
+      return res.status(200).json(`Count of all movements: ${count}`);
+    }
+    logger.name = "Verplaatsing";
+    logger.warn(`${emoji.get('round_pushpin')}  No movements found`);
+    logger.name = "Server";
+    return res.status(404).json('Geen verplaatsingen gevonden');
+  } catch (error: any) {
+    logger.name = "Verplaatsing";
+    logger.error(`${emoji.get('round_pushpin')}  An error occurred while getting movement count`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }

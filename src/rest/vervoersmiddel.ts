@@ -27,11 +27,13 @@ async (req: Request, res: Response) => {
   }
   try {
     const vervoersmiddelen = await VervoersmiddelService.listVervoersmiddelen();
-    if (vervoersmiddelen) {
+    const count = await VervoersmiddelService.getVervoersmiddelCount();
+    if (vervoersmiddelen && count) {
       logger.name = "Vervoersmiddel";
       logger.info(`${emoji.get('taxi')}  Getting all means of transport`);
       logger.name = "Server";
-      return res.status(200).json(vervoersmiddelen);
+      const vervoersmiddelenWithCount = { count, vervoersmiddelen };
+      return res.status(200).json(vervoersmiddelenWithCount);
     }
     logger.name = "Vervoersmiddel";
     logger.warn(`${emoji.get('taxi')}  No means of transport found`);
@@ -40,6 +42,38 @@ async (req: Request, res: Response) => {
   } catch (error: any) {
     logger.name = "Vervoersmiddel";
     logger.error(`${emoji.get('taxi')}  An error occurred while getting all means of transport`);
+    logger.name = "Server";
+    return res.status(500).json(error.message);
+  }
+});
+
+//GET: Vervoersmiddel count
+vervoersmiddelRouter.get('/count',
+checkJwt,
+checkScopes,
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.name = "Vervoersmiddel";
+    logger.error(`${emoji.get('taxi')}  An error occurred while getting the number of means of transport`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const count = await VervoersmiddelService.getVervoersmiddelCount();
+    if (count) {
+      logger.name = "Vervoersmiddel";
+      logger.info(`${emoji.get('taxi')}  Getting count of means of transport`);
+      logger.name = "Server";
+      return res.status(200).json(`Count of all means of transport: ${count}`);
+    }
+    logger.name = "Vervoersmiddel";
+    logger.warn(`${emoji.get('taxi')}  No means of transport found`);
+    logger.name = "Server";
+    return res.status(404).json('Geen vervoersmiddelen gevonden');
+  } catch (error: any) {
+    logger.name = "Vervoersmiddel";
+    logger.error(`${emoji.get('taxi')}  An error occurred while getting the number of means of transport`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }

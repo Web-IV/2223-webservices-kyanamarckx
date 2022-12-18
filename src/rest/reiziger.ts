@@ -19,11 +19,13 @@ checkScopes,
 async (req: Request, res: Response) => {
   try {
     const reizigers = await ReizigerService.getReizigers();
-    if (reizigers) {
+    const count = await ReizigerService.getReizigerCount();
+    if (reizigers && count) {
       logger.name = "Reiziger";
       logger.info(`${emoji.get('alien')}  Getting all travellers`);
       logger.name = "Server";
-      return res.status(200).json(reizigers);
+      const reizigersWithCount = { count, reizigers };
+      return res.status(200).json(reizigersWithCount);
     }
     logger.name = "Reiziger";
     logger.warn(`${emoji.get('alien')}  No travellers found`);
@@ -32,6 +34,38 @@ async (req: Request, res: Response) => {
   } catch (error: any) {
     logger.name = "Reiziger";
     logger.error(`${emoji.get('alien')}  An error occurred while getting all travellers`);
+    logger.name = "Server";
+    return res.status(500).json(error.message);
+  }
+});
+
+// GET: count of all reizigers
+reizigerRouter.get('/count',
+checkJwt,
+checkScopes,
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.name = "Reiziger";
+    logger.error(`${emoji.get('alien')}  An error occurred while getting count of all travellers`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const count = await ReizigerService.getReizigerCount();
+    if (count) {
+      logger.name = "Reiziger";
+      logger.info(`${emoji.get('alien')}  Getting count of all travellers`);
+      logger.name = "Server";
+      return res.status(200).json(`Count of all travellers: ${count}`);
+    }
+    logger.name = "Reiziger";
+    logger.warn(`${emoji.get('alien')}  No travellers found`);
+    logger.name = "Server";
+    return res.status(404).json('Geen reizigers gevonden');
+  } catch (error: any) {
+    logger.name = "Reiziger";
+    logger.error(`${emoji.get('alien')}  An error occurred while getting count of all travellers`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }

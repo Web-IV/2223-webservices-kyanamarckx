@@ -3,12 +3,14 @@
 // import * as json from '../../package.json';
 const json = require("../../package.json");
 
-// export default async function health(ctx: Response) {
-//   ctx. = {
-//     name: json.name,
-//     version: json.version,
-//     description: json.description,
-//   };
+export default async function health(ctx: any) {
+  ctx.body = {
+    name: json.name,
+    version: json.version,
+    description: json.description,
+  };
+  return ctx.body;
+}
 
 export const ping = () => ({ pong: true })
 

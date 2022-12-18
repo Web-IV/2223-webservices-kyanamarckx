@@ -18,6 +18,10 @@ export const listVerplaatsingen = async (): Promise<Verplaatsing[]> => {
   });
 };
 
+export const getVerplaatsingCount = async (): Promise<number> => {
+  return db.verplaatsing.count();
+};
+
 export const getVerplaatsingById = async(id: number): Promise<Verplaatsing | null> => {
   return db.verplaatsing.findUnique({
     where: {

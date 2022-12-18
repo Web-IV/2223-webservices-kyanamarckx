@@ -27,11 +27,13 @@ async (req: Request, res: Response) => {
   }
   try {
     const bestemmingen = await BestemmingService.listBestemmingen();
-    if (bestemmingen) {
+    const count = await BestemmingService.getBestemmingCount();
+    if (bestemmingen && count) {
       logger.name = "Bestemming";
       logger.info(`${emoji.get('desert_island')}  Getting all destinations`);
       logger.name = "Server";
-      return res.status(200).json(bestemmingen);
+      const bestemmingenWithCount = { count, bestemmingen };
+      return res.status(200).json(bestemmingenWithCount);
     }
     logger.name = "Bestemming";
     logger.warn(`${emoji.get('desert_island')}  No destinations found`);
@@ -40,6 +42,38 @@ async (req: Request, res: Response) => {
   } catch (error: any) {
     logger.name = "Bestemming";
     logger.error(`${emoji.get('desert_island')}  An error occurred while getting all destinations`);
+    logger.name = "Server";
+    return res.status(500).json(error.message);
+  }
+});
+
+// GET: Bestemming count
+bestemmingRouter.get('/count',
+checkJwt,
+checkScopes,
+async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.name = "Bestemming";
+    logger.error(`${emoji.get('desert_island')}  An error occurred while getting destination count`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const count = await BestemmingService.getBestemmingCount();
+    if (count) {
+      logger.name = "Bestemming";
+      logger.info(`${emoji.get('desert_island')}  Getting count of all destinations`);
+      logger.name = "Server";
+      return res.status(200).json(`Count of all destinations: ${count}`);
+    }
+    logger.name = "Bestemming";
+    logger.warn(`${emoji.get('desert_island')}  No destinations found`);
+    logger.name = "Server";
+    return res.status(404).json('Geen bestemmingen gevonden');
+  } catch (error: any) {
+    logger.name = "Bestemming";
+    logger.error(`${emoji.get('desert_island')}  An error occurred while getting destination count`);
     logger.name = "Server";
     return res.status(500).json(error.message);
   }
