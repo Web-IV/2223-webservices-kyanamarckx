@@ -57,11 +57,11 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
   `*id`
 
-  `+vervoersmiddelId`
+  `+vervoersmiddel_id`
 
-  `+reizigerId`
+  `+reiziger_id`
 
-  `+bestemmingId`
+  `+bestemming_id`
 
   `Reiziger *--1 Verplaatsing`
   
