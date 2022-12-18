@@ -5,7 +5,7 @@ import emoji from 'node-emoji';
 
 import { $log as logger } from "ts-log-debug";
 
-import { checkJwtToken, hasPermission } from './core/auth';
+// import { checkJwtToken, hasPermission } from './core/auth';
 import { ServiceError } from './core/serviceError';
 import { installRoutes } from './rest/index';
 
@@ -28,58 +28,58 @@ export default async function createServer() {
   const PORT: number = parseInt(process.env.PORT as string, 10);
   
   app.use(express.json());
-  app.use(checkJwtToken());
-  app.use(async (ctx: any, req: any, next: NextFunction) => {
-    logger.name = 'Auth';
+  // app.use(checkJwtToken());
+  // app.use(async (ctx: any, req: any, next: NextFunction) => {
+  //   logger.name = 'Auth';
 
-    logger.debug(`Token: ${ctx.headers.authorization}`);
-    logger.debug(`Sub: ${JSON.stringify(ctx.auth.sub)}`)
-    logger.debug(`Current user: ${JSON.stringify(ctx.auth)}`);
-    logger.debug(`Errors: ${ctx.jwtOriginalError}`);
+  //   // logger.debug(`Token: ${ctx.headers.authorization}`);
+  //   // // logger.debug(`Sub: ${JSON.stringify(ctx.auth.sub)}`)
+  //   // logger.debug(`Current user: ${JSON.stringify(ctx.auth)}`);
+  //   // logger.debug(`Errors: ${ctx.jwtOriginalError}`);
 
-    const user = ctx.auth.scope;
-    logger.debug(user);
+  //   // const user = ctx.auth.scope;
+  //   // logger.debug(user);
     
 
-    // if(perm.includes("write")) {
-    //   logger.debug('User has write permissions');
-    // }
-    // if(perm === 'read') {
-    //   logger.debug('User has read permissions');
-    // }
+  //   // if(perm.includes("write")) {
+  //   //   logger.debug('User has write permissions');
+  //   // }
+  //   // if(perm === 'read') {
+  //   //   logger.debug('User has read permissions');
+  //   // }
 
-    // const response = hasPermission(ctx, 'write');
-    // logger.debug(response);
+  //   // const response = hasPermission(ctx, 'write');
+  //   // logger.debug(response);
 
-    // if(response === true) {
-    //   logger.debug("werkt")
-    // }
+  //   // if(response === true) {
+  //   //   logger.debug("werkt")
+  //   // }
 
 
-    // logger.debug(ctx.auth.roles);
-    // ctx.name = ctx.auth.sub
-    // logger.debug(ctx);
-    // logger.debug(`Name: ${(JSON.stringify(ctx.headers))}`);
-    // let reizigerId;
-    // const sub = ctx.auth.sub;
-    // logger.debug(sub) 
-    // const reiziger = await ReizigerService.getReizigerByAuth0id(sub);
-    // logger.debug(`Reiziger: ${JSON.stringify(reiziger)}`);
-    // const reizigerstring = JSON.stringify(reiziger);
-    // logger.debug(reizigerstring);
-    // const idarr = reiziger.map((obj) => obj.id);
-    // const id = idarr[0];
-    // logger.debug(id);
+  //   // logger.debug(ctx.auth.roles);
+  //   // ctx.name = ctx.auth.sub
+  //   // logger.debug(ctx);
+  //   // logger.debug(`Name: ${(JSON.stringify(ctx.headers))}`);
+  //   // let reizigerId;
+  //   // const sub = ctx.auth.sub;
+  //   // logger.debug(sub) 
+  //   // const reiziger = await ReizigerService.getReizigerByAuth0id(sub);
+  //   // logger.debug(`Reiziger: ${JSON.stringify(reiziger)}`);
+  //   // const reizigerstring = JSON.stringify(reiziger);
+  //   // logger.debug(reizigerstring);
+  //   // const idarr = reiziger.map((obj) => obj.id);
+  //   // const id = idarr[0];
+  //   // logger.debug(id);
 
-    // const substring = reiziger.toString();
-    // substring.substring(0,32)
-    // reizigerId = substring;
-    // logger.debug(`ReizigerId: ${reizigerId}`);
+  //   // const substring = reiziger.toString();
+  //   // substring.substring(0,32)
+  //   // reizigerId = substring;
+  //   // logger.debug(`ReizigerId: ${reizigerId}`);
 
-    logger.name = 'Server';
+  //   logger.name = 'Server';
 
-    next();
-  });
+  //   next();
+  // });
 
  
   app.use(async(ctx: any, req: any, next: NextFunction) => {

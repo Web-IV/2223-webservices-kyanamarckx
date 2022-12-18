@@ -6,11 +6,17 @@ import { $log as logger} from "ts-log-debug";
 logger.level = "debug";
 
 import * as VervoersmiddelService from '../service/vervoersmiddel.service';
+import { checkJwt } from '../core/auth';
+import { requiredScopes } from 'express-oauth2-jwt-bearer';
 
 export const vervoersmiddelRouter = express.Router();
 
+let checkScopes = requiredScopes('read');
+
 // GET: list of all Vervoersmiddelen
 vervoersmiddelRouter.get('/', 
+checkJwt,
+checkScopes,
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -41,6 +47,8 @@ async (req: Request, res: Response) => {
 
 // GET: Vervoersmiddel by id
 vervoersmiddelRouter.get('/:id', 
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -71,9 +79,13 @@ async (req: Request, res: Response) => {
   }
 });
 
+checkScopes = requiredScopes('write');
+
 //POST: create a new Vervoersmiddel
 // params: type
 vervoersmiddelRouter.post("/",
+checkJwt,
+checkScopes,
 body("type").isString().isLength({ min: 1, max: 255 }).withMessage("Type must be a string between 1 and 255 characters"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -101,6 +113,8 @@ async (req: Request, res: Response) => {
 // PUT: update a Vervoersmiddel
 // params: type
 vervoersmiddelRouter.put("/:id",
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 body("type").isString().isLength({ min: 1, max: 255 }).withMessage("Type must be a string between 1 and 255 characters"),
 async (req: Request, res: Response) => {
@@ -135,6 +149,8 @@ async (req: Request, res: Response) => {
 
 // DELETE: delete a Vervoersmiddel
 vervoersmiddelRouter.delete("/:id", 
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);

@@ -1,4 +1,4 @@
-import express, { NextFunction } from 'express';
+import express from 'express';
 import emoji from 'node-emoji';
 import type { Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
@@ -6,12 +6,16 @@ import { $log as logger} from "ts-log-debug";
 logger.level = "debug";
 
 import * as ReizigerService from '../service/reiziger.service';
-import { hasPermission } from '../core/auth';
-
+import { checkJwt } from '../core/auth';
+import { requiredScopes } from 'express-oauth2-jwt-bearer';
 export const reizigerRouter = express.Router();
+
+let checkScopes = requiredScopes('read');
 
 // GET: list of all Reizigers
 reizigerRouter.get('/', 
+checkJwt,
+checkScopes,
 async (req: Request, res: Response) => {
   try {
     const reizigers = await ReizigerService.getReizigers();
@@ -35,6 +39,8 @@ async (req: Request, res: Response) => {
 
 // GET: Reiziger by id
 reizigerRouter.get('/:id', 
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -67,6 +73,8 @@ async (req: Request, res: Response) => {
 
 //GET: reiziger by auth0id
 reizigerRouter.get('/auth0/:id',
+checkJwt,
+checkScopes,
 param("id").isString().isLength({ min: 5, max: 255 }).withMessage("Id must be a string between 5 and 255 characters"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -97,9 +105,13 @@ async (req: Request, res: Response) => {
   }
 });
 
+checkScopes = requiredScopes('write');
+
 //POST: create a new Reiziger
 //params: voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id
 reizigerRouter.post("/", 
+checkJwt,
+checkScopes,
 body("voornaam").isString().isLength({ min: 1, max: 255 }).withMessage("Voornaam must be between 1 and 255 characters"),
 body("naam").isString().isLength({ min: 1, max: 255 }).withMessage("Naam must be between 1 and 255 characters"),
 body("geboortedatum").isString().isLength({ min: 10, max: 10 }).withMessage("Geboortedatum must be exact 10 characters (type: YYYY-MM-DD)"),
@@ -107,7 +119,6 @@ body("stad").isString().isLength({ min: 1, max: 255 }).withMessage("Stad must be
 body("straat").isString().isLength({ min: 1, max: 255 }).withMessage("Straat must be between 1 and 255 characters"),
 body("huisnummer").isString().isLength({ min: 1, max: 10 }).withMessage("Huisnummer must be between 1 and 10 characters"),
 body("auth0id").isString().isLength({ min: 5, max: 255 }).withMessage("Auth0id must be between 5 and 255 characters"),
-
 async (req: Request, res: Response) => {
   // const response = hasPermission(ctx, req, res, "write", next);
   const errors = validationResult(req);
@@ -135,6 +146,8 @@ async (req: Request, res: Response) => {
 // PUT: update a Reiziger
 // params: voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id
 reizigerRouter.put("/:id",
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 body("voornaam").isString().isLength({ min: 1, max: 255 }).withMessage("Voornaam must be between 1 and 255 characters"),
 body("naam").isString().isLength({ min: 1, max: 255 }).withMessage("Naam must be between 1 and 255 characters"),
@@ -175,6 +188,8 @@ async (req: Request, res: Response) => {
 
 // DELETE: delete a Reiziger
 reizigerRouter.delete("/:id", 
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);

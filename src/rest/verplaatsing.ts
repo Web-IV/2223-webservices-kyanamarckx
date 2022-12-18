@@ -6,11 +6,17 @@ import { $log as logger} from "ts-log-debug";
 logger.level = "debug";
 
 import * as VerplaatsingService from '../service/verplaatsing.service';
+import { checkJwt } from '../core/auth';
+import { requiredScopes } from 'express-oauth2-jwt-bearer';
 
 export const verplaatsingRouter = express.Router();
 
+let checkScopes = requiredScopes('read');
+
 // GET: list of all Verplaatsingen
 verplaatsingRouter.get('/', 
+checkJwt,
+checkScopes,
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -41,6 +47,8 @@ async (req: Request, res: Response) => {
 
 // GET: Verplaatsing by id
 verplaatsingRouter.get('/:id', 
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -71,9 +79,13 @@ async (req: Request, res: Response) => {
   }
 });
 
+checkScopes = requiredScopes('write');
+
 //POST: create a new Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
 verplaatsingRouter.post("/",
+checkJwt,
+checkScopes,
 body("reiziger_id").isInt({ min: 1 }).withMessage("reiziger_id must be a positive integer"),
 body("bestemming_id").isInt({ min: 1 }).withMessage("bestemming_id must be a positive integer"),
 body("vervoersmiddel_id").isInt({ min: 1 }).withMessage("vervoersmiddel_id must be a positive integer"),
@@ -103,6 +115,8 @@ async (req: Request, res: Response) => {
 // PUT: update a Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
 verplaatsingRouter.put("/:id",
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 body("reiziger_id").isInt({ min: 1 }).withMessage("reiziger_id must be a positive integer"),
 body("bestemming_id").isInt({ min: 1 }).withMessage("bestemming_id must be a positive integer"),
@@ -139,6 +153,8 @@ async (req: Request, res: Response) => {
 
 // DELETE: delete a Verplaatsing
 verplaatsingRouter.delete("/:id", 
+checkJwt,
+checkScopes,
 param("id").isInt({ min: 1 }).withMessage("Id must be a positive integer"),
 async (req: Request, res: Response) => {
   const errors = validationResult(req);
