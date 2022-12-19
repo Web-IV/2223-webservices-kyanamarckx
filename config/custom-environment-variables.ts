@@ -13,6 +13,7 @@ module.exports = {
       userId: 'AUTH_TEST_USER_USER_ID',
       username: 'AUTH_TEST_USER_USERNAME',
       password: 'AUTH_TEST_USER_PASSWORD',
+      auth0id: 'AUTH_TEST_USER_AUTH0ID',
     },
   },
 };

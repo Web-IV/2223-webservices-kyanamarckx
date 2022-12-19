@@ -1,6 +1,7 @@
 import createServer from "../src/createServer";
 import request from "supertest";
 import { expect } from "@jest/globals";
+import { fetchAccessToken } from "./helper";
 
 const testBestemming = {
   land: "LandTest",
@@ -24,31 +25,31 @@ afterAll(async () => {
 
 it("GET /bestemmingen", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).get("/api/bestemmingen");
+  const response = await request(app).get("/api/bestemmingen").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(200);
-  expect(response.body).toEqual([
-    {"id": 1,"land": "Spanje","postcode": "46001","stad": "Valencia",},
-    {"id": 2,"land": "België","postcode": "9571","stad": "Lierde",},
-    {"id": 3,"land": "Frankrijk","postcode": "83570","stad": "Cotignac",},
-    {"id": 4,"land": "Zweden","postcode": "20049","stad": "Malmö",},
-  ]);
+  expect(response.body).toEqual(
+    {"bestemmingen": [{"id": 1, "land": "Frankrijk", "postcode": "83570", "stad": "Cotignac"}], "count": 1}
+  );
 });
 
 
 it("GET /bestemmingen/:id with correct id", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).get("/api/bestemmingen/1");
+  const response = await request(app).get("/api/bestemmingen/1").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(200);
-  expect(response.body).toEqual({"id": 1,"land": "Spanje","postcode": "46001","stad": "Valencia",});
+  expect(response.body).toEqual({"id": 1,"land": "Frankrijk","postcode": "83570","stad": "Cotignac",});
 });
 
 
 it("GET /bestemmingen/:id with incorrect id", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).get("/api/bestemmingen/abc");
+  const response = await request(app).get("/api/bestemmingen/abc").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({"errors": [{"location": "params", "msg": "Id must be a positive integer", "param": "id", "value": "abc",},],});
 });
@@ -56,8 +57,9 @@ it("GET /bestemmingen/:id with incorrect id", async () => {
 
 it("GET /bestemmingen/:id with non-existing id", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).get("/api/bestemmingen/10");
+  const response = await request(app).get("/api/bestemmingen/10").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(404);
   expect(response.body).toEqual("Bestemming niet gevonden");
 });
@@ -68,8 +70,9 @@ it("GET /bestemmingen/:id with non-existing id", async () => {
 
 it("POST /bestemmingen with correct body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).post("/api/bestemmingen").send(testBestemming);
+  const response = await request(app).post("/api/bestemmingen").send(testBestemming).set("Authorization", `Bearer ${token}`);
   const bestemmingId = response.body.id;
   expect(response.status).toEqual(201);
   expect(response.body).toEqual({"id": bestemmingId, "land": "LandTest", "postcode": "012345", "stad": "StadTest",});
@@ -78,8 +81,9 @@ it("POST /bestemmingen with correct body", async () => {
 
 it("POST /bestemmingen with incorrect body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).post("/api/bestemmingen").send({});
+  const response = await request(app).post("/api/bestemmingen").send({}).set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({
     "errors": [
@@ -99,6 +103,7 @@ it("POST /bestemmingen with incorrect body", async () => {
 
 it("PUT /bestemmingen/:id with correct id and correct body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
   const testBestemmingUpdate = {
     land: "LandTestUpdate",
@@ -106,14 +111,15 @@ it("PUT /bestemmingen/:id with correct id and correct body", async () => {
     postcode: "543210",
   };
 
-  const response = await request(app).put("/api/bestemmingen/7").send(testBestemmingUpdate);
+  const response = await request(app).put("/api/bestemmingen/2").send(testBestemmingUpdate).set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(200);
-  expect(response.body).toEqual({"id": 7, "land": "LandTestUpdate", "postcode": "543210", "stad": "StadTestUpdate",});
+  expect(response.body).toEqual({"id": 2, "land": "LandTestUpdate", "postcode": "543210", "stad": "StadTestUpdate",});
 });
 
 
 it("PUT /bestemmingen/:id with incorrect id and correct body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
   const testBestemmingUpdate = {
     land: "LandTestUpdate",
@@ -121,7 +127,7 @@ it("PUT /bestemmingen/:id with incorrect id and correct body", async () => {
     postcode: "543210",
   };
 
-  const response = await request(app).put("/api/bestemmingen/abc").send(testBestemmingUpdate);
+  const response = await request(app).put("/api/bestemmingen/abc").send(testBestemmingUpdate).set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({"errors": [{"location": "params", "msg": "Id must be a positive integer", "param": "id", "value": "abc",},],});
 });
@@ -129,6 +135,7 @@ it("PUT /bestemmingen/:id with incorrect id and correct body", async () => {
 
 it("PUT /bestemmingen/:id with correct id and incorrect body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
   const testBestemmingFout = {
     land: "",
@@ -136,7 +143,7 @@ it("PUT /bestemmingen/:id with correct id and incorrect body", async () => {
     postcode: "",
   };
 
-  const response = await request(app).put("/api/bestemmingen/7").send(testBestemmingFout);
+  const response = await request(app).put("/api/bestemmingen/2").send(testBestemmingFout).set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({
     "errors": [
@@ -150,6 +157,7 @@ it("PUT /bestemmingen/:id with correct id and incorrect body", async () => {
 
 it("PUT /bestemmingen/:id with incorrect id and incorrect body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
   const testBestemmingFout = {
     land: "",
@@ -157,7 +165,7 @@ it("PUT /bestemmingen/:id with incorrect id and incorrect body", async () => {
     postcode: "",
   };
 
-  const response = await request(app).put("/api/bestemmingen/abc").send(testBestemmingFout);
+  const response = await request(app).put("/api/bestemmingen/abc").send(testBestemmingFout).set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({
     "errors": [
@@ -171,6 +179,7 @@ it("PUT /bestemmingen/:id with incorrect id and incorrect body", async () => {
 
 it("PUT /bestemmingen/:id with non-existing id and correct body", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
   const testBestemmingUpdate = {
     land: "LandTestUpdate",
@@ -178,7 +187,7 @@ it("PUT /bestemmingen/:id with non-existing id and correct body", async () => {
     postcode: "543210",
   };
 
-  const response = await request(app).put("/api/bestemmingen/5").send(testBestemmingUpdate);
+  const response = await request(app).put("/api/bestemmingen/10").send(testBestemmingUpdate).set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(500);
   expect(response.body).toEqual("\nInvalid `prisma.bestemming.update()` invocation:\n\n\nAn operation failed because it depends on one or more records that were required but not found. Record to update not found.");
 });
@@ -189,8 +198,9 @@ it("PUT /bestemmingen/:id with non-existing id and correct body", async () => {
 
 it("DELETE /bestemmingen/:id with correct id", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).delete("/api/bestemmingen/11");
+  const response = await request(app).delete("/api/bestemmingen/2").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(204);
   expect(response.body).toEqual({});
 });
@@ -198,8 +208,9 @@ it("DELETE /bestemmingen/:id with correct id", async () => {
 
 it("DELETE /bestemmingen/:id with incorrect id", async () => {
   const app = (await server).getApp();
+  const token = await fetchAccessToken();
 
-  const response = await request(app).delete("/api/bestemmingen/abc");
+  const response = await request(app).delete("/api/bestemmingen/abc").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(400);
   expect(response.body).toEqual({"errors": [{"location": "params", "msg": "Id must be a positive integer", "param": "id", "value": "abc",},],});
 });
