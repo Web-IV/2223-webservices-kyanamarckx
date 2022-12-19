@@ -1,0 +1,5 @@
+TODO
+in reiziger.service.ts de methode getReizigerByAuth0id() testen in reiziger.test.ts
+
+TODO
+functie getCount toevoegen overal + testen
