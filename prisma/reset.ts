@@ -6,7 +6,3 @@ export function reset() {
   Prisma.raw("DROP TABLE bestemming;");
   Prisma.raw("DROP TABLE vervoersmiddel;");
 }
-
-
-//push the prisma db 
-

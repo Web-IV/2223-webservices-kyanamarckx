@@ -5,13 +5,12 @@ import emoji from 'node-emoji';
 
 import { $log as logger } from "ts-log-debug";
 
-// import { checkJwtToken, hasPermission } from './core/auth';
 import { ServiceError } from './core/serviceError';
 import { installRoutes } from './rest/index';
+import { reset } from '../prisma/reset';
 
 import config from 'config';
-import { reset } from '../prisma/reset';
-import { seed } from '../prisma/seed';
+
 
 const NODE_ENV = config.get('env');
 
@@ -33,7 +32,7 @@ export default async function createServer() {
 
   app.use(express.json());
  
-  app.use(async(ctx: any, req: any, next: NextFunction) => {
+  app.use(async(ctx: any, _req: any, next: NextFunction) => {
     try {
       next();
 
@@ -77,7 +76,7 @@ export default async function createServer() {
     }
   });
 
-  app.use(async (ctx: any, res: any, next: NextFunction) => {
+  app.use(async (ctx: any, _res: any, next: NextFunction) => {
     logger.info(`${emoji.get('rocket')} ${ctx.method} ${ctx.url}`);
 
     try {
@@ -114,7 +113,7 @@ export default async function createServer() {
     async stop() {
       app.removeAllListeners();
       new Promise<void>((resolve) => {
-        app.listen().close(() => {
+        app.listen(PORT).close(() => {
           logger.info(`${emoji.get("waning_crescent_moon")} Server stopped`);
           resolve();
         });

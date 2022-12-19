@@ -33,6 +33,16 @@ it("GET /verplaatsingen", async () => {
 });
 
 
+it("GET /verplaatsingen/count", async () => {
+  const app = (await server).getApp();
+  const token = await fetchAccessToken();
+
+  const response = await request(app).get("/api/verplaatsingen/count").set('Authorization', `Bearer ${token}`);
+  expect(response.status).toEqual(200);
+  expect(response.body).toEqual("Count of all movements: 1");
+});
+
+
 it("GET /verplaatsingen/:id with correct id", async () => {
   const app = (await server).getApp();
   const token = await fetchAccessToken();

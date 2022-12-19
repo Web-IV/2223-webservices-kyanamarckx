@@ -41,6 +41,15 @@ it("GET /reizigers", async () => {
     ]});
 });
 
+it("GET /reizigers/count", async() => {
+  const app = (await server).getApp();
+  const token = await fetchAccessToken();
+
+  const response = await request(app).get("/api/reizigers/count").set("Authorization", `Bearer ${token}`);
+  expect(response.status).toEqual(200);
+  expect(response.body).toEqual("Count of all travellers: 1");
+});
+
 
 it("GET /reizigers/:id with correct id", async () => {
   const app = (await server).getApp();
@@ -67,6 +76,36 @@ it("GET /reizigers/:id with non-existing id", async () => {
   const token = await fetchAccessToken();
 
   const response = await request(app).get("/api/reizigers/10").set("Authorization", `Bearer ${token}`);
+  expect(response.status).toEqual(404);
+  expect(response.body).toEqual("Reiziger niet gevonden");
+});
+
+
+it("GET /reizigers/auth0/:id with correct id", async () => {
+  const app = (await server).getApp();
+  const token = await fetchAccessToken();
+
+  const response = await request(app).get("/api/reizigers/auth0/sJUibowqneIEBIvxyeLQd869uivdTHuP@clients").set("Authorization", `Bearer ${token}`);
+  expect(response.status).toEqual(200);
+  expect(response.body).toEqual([{"auth0id": "sJUibowqneIEBIvxyeLQd869uivdTHuP@clients","geboortedatum": "2003-12-15","huisnummer": "5","id": 1,"naam": "De Waegeneer","stad": "Aalst","straat": "Hugo Lefèvrestraat","voornaam": "Robin",}]);
+});
+
+
+it("GET /reizigers/auth0/:id with incorrect id", async () => {
+  const app = (await server).getApp();
+  const token = await fetchAccessToken();
+
+  const response = await request(app).get("/api/reizigers/auth0/abc").set("Authorization", `Bearer ${token}`);
+  expect(response.status).toEqual(400);
+  expect(response.body).toEqual({"errors": [{"location": "params", "msg": "Id must be a string between 5 and 255 characters", "param": "id", "value": "abc",},],});
+});
+
+
+it("GET /reizigers/auth0/:id with non-existing id", async () => {
+  const app = (await server).getApp();
+  const token = await fetchAccessToken();
+
+  const response = await request(app).get("/api/reizigers/auth0/sJUibowqneIEBIvxyeLQd869uivdTHuP@client").set("Authorization", `Bearer ${token}`);
   expect(response.status).toEqual(404);
   expect(response.body).toEqual("Reiziger niet gevonden");
 });

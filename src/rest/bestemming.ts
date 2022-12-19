@@ -124,28 +124,27 @@ body("land").isString().isLength({ min: 1, max: 255 }).withMessage("Land must be
 body("stad").isString().isLength({ min: 1, max: 255 }).withMessage("Stad must be between 1 and 255 characters"),
 body("postcode").isString().isLength({ min: 1, max: 10 }).withMessage("Postcode must be between 1 and 10 characters"),
 async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
     logger.name = "Bestemming";
     logger.error(`${emoji.get('desert_island')}  An error occured while creating a new destination`);
     logger.name = "Server";
     return res.status(400).json({ errors: errors.array() });
-    }
-    try {
+  }
+  try {
     const bestemming = req.body;
     const newBestemming = await BestemmingService.createBestemming(bestemming);
     logger.name = "Bestemming";
     logger.info(`${emoji.get('desert_island')}  Creating a new destination`);
     logger.name = "Server";
     return res.status(201).json(newBestemming);
-    } catch (error: any) {
+  } catch (error: any) {
     logger.name = "Bestemming";
     logger.error(`${emoji.get('desert_island')}  An error occured while creating a new destination`);
     logger.name = "Server";
     return res.status(500).json(error.message);
-    }
-  }  
-);
+  }
+});
 
 // PUT: update a Bestemming
 // params: land, stad, postcode

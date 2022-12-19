@@ -17,6 +17,13 @@ reizigerRouter.get('/',
 checkJwt,
 checkScopes,
 async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.name = "Reiziger";
+    logger.error(`${emoji.get('alien')}  An error occurred while getting all travellers`);
+    logger.name = "Server";
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const reizigers = await ReizigerService.getReizigers();
     const count = await ReizigerService.getReizigerCount();
@@ -154,7 +161,6 @@ body("straat").isString().isLength({ min: 1, max: 255 }).withMessage("Straat mus
 body("huisnummer").isString().isLength({ min: 1, max: 10 }).withMessage("Huisnummer must be between 1 and 10 characters"),
 body("auth0id").isString().isLength({ min: 5, max: 255 }).withMessage("Auth0id must be between 5 and 255 characters"),
 async (req: Request, res: Response) => {
-  // const response = hasPermission(ctx, req, res, "write", next);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.name = "Reiziger";

@@ -5,12 +5,9 @@ const prisma = new PrismaClient();
 
 export async function main() {
   try {
-    // const PORT: number = parseInt(process.env.PORT as string, 10);
     const server = await createServer();
     await server.start();
     server.getApp();
-
-    // console.log(`Server started on port ${PORT}`);
     
     await prisma.$connect();
 

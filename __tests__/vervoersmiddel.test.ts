@@ -31,6 +31,16 @@ it("GET /vervoersmiddelen", async () => {
 });
 
 
+it("GET /vervoersmiddelen/count", async () => {
+  const app = (await server).getApp();
+  const token = await fetchAccessToken();
+
+  const response = await request(app).get("/api/vervoersmiddelen/count").set('Authorization', `Bearer ${token}`);
+  expect(response.status).toEqual(200);
+  expect(response.body).toEqual("Count of all means of transport: 1");
+});
+
+
 it("GET /vervoersmiddelen/:id with correct id", async () => {
   const app = (await server).getApp();
   const token = await fetchAccessToken();
