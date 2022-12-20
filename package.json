@@ -4,7 +4,7 @@
   "description": "> Schrap hierboven wat niet past",
   "main": "src/index.ts",
   "prisma": {
-    "seed": "node --loader esbuild-register/loader -r ./prisma/seedTest.ts"
+    "seed": "node -r esbuild-register ./prisma/seedTest.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
