@@ -51,12 +51,13 @@
     "test": "npm run reset && npm run push && npm run testseed && npm run jest",
     "dev": "nodemon src/index.ts",
     "begin": "npx node ./dist/src/index.js",
+    "install": "npm install -g typescript",
     "build": "npx tsc",
     "push": "npx prisma db push",
     "seed": "npx prisma db seed",
     "generate": "npx prisma generate",
     "reset": "npx prisma migrate reset --force --skip-seed",
-    "start": "npm run reset && npm run push && npm run build && npm run begin",
+    "start": "npm run reset && npm run push && npm run install && npm run build && npm run begin",
     "start:prod": "npm start"
   },
   "repository": {
