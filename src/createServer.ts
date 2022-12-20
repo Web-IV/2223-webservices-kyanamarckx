@@ -113,7 +113,7 @@ export default async function createServer() {
     async stop() {
       app.removeAllListeners();
       new Promise<void>((resolve) => {
-        app.listen(PORT).close(() => {
+        app.listen().close(() => {
           logger.info(`${emoji.get("waning_crescent_moon")} Server stopped`);
           resolve();
         });

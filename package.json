@@ -4,7 +4,7 @@
   "description": "> Schrap hierboven wat niet past",
   "main": "src/index.ts",
   "prisma": {
-    "seed": "node --require esbuild-register prisma/seed.ts"
+    "seed": "node --require esbuild-register prisma/seedTest.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
@@ -55,7 +55,8 @@
     "seed": "npx prisma db seed",
     "generate": "npx prisma generate",
     "reset": "npx prisma migrate reset --force --skip-seed",
-    "start": "npm run reset && npm run push && npm run seed && npm run begin"
+    "start": "npm run reset && npm run push && npm run seed && npm run begin",
+    "start:prod": "npm start"
   },
   "repository": {
     "type": "git",
