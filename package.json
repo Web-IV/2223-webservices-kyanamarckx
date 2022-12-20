@@ -50,7 +50,7 @@
     "test:coverage": "npm test --coverage",
     "test": "npm run reset && npm run push && npm run testseed && npm run jest",
     "dev": "nodemon src/index.ts",
-    "begin": "npx env-cmd node ./dist/src/index.js",
+    "begin": "npx env-cmd node ./src/index.ts",
     "push": "npx prisma db push",
     "seed": "npx prisma db seed",
     "generate": "npx prisma generate",
