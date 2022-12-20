@@ -1,8 +1,11 @@
 module.exports = {
+  port: 8000,
   log: {
     level: 'info',
     disabled: false,
   },
-  //TODO moet cors hier bij? -> staat niet in de applicatie uit les 5
-  //TODO database toevoegen
+  cors: {
+    origins: ['http://localhost:8000'],
+    maxAge: 3 * 60 * 60,
+  }
 };
