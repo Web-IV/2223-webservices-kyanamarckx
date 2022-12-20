@@ -55,7 +55,7 @@
     "seed": "npx prisma db seed",
     "generate": "npx prisma generate",
     "reset": "npx prisma migrate reset --force --skip-seed",
-    "start": "npm run reset && npm run push && npm run seed && npm run begin",
+    "start": "npm run reset && npm run push && npm run begin",
     "start:prod": "npm start"
   },
   "repository": {

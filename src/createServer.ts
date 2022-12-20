@@ -10,6 +10,7 @@ import { installRoutes } from './rest/index';
 import { reset } from '../prisma/reset';
 
 import config from 'config';
+import { seed } from '../prisma/seedTest';
 
 
 const NODE_ENV = config.get('env');
@@ -94,6 +95,8 @@ export default async function createServer() {
   app.use(express.json());
 
   installRoutes(app);
+
+  seed();
 
 
   return {

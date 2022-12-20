@@ -80,7 +80,7 @@ export async function seed() {
   );
 }
 
-seed();
+// seed();
 
 
 
