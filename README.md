@@ -61,7 +61,7 @@ De files moeten elk apart gerunned worden, anders doet de testuser te veel reque
 
 `npm run test:bestemming`
 
-### vervoermsiddel.test.ts
+### vervoersmiddel.test.ts
 
 `npm run test:vervoersmiddel`
 
