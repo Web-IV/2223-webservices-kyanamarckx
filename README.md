@@ -1,7 +1,5 @@
 # Examenopdracht Web Services
 
-> Schrap hierboven wat niet past
-
 - Student: KYANA MARCKX
 - Studentennummer: 202183241
 - E-mailadres: kyana.marckx@student.hogent.be
@@ -11,75 +9,21 @@
 Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 - [NodeJS](https://nodejs.org)
-- [Yarn](https://yarnpkg.com)
+- [Npm](https://www.npmjs.com)
 - [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
-- ...
 
-> Vul eventueel aan
-
-## ERD
-  ![ERD](/images/ERD.png)
-- code kroki:
-  
-  `[Bestemming]`
-  
-  `*id`
-  
-  `land`
-  
-  `stad`
-  
-  `postcode`
-
-  `[Reiziger]`
-  
-  `*id`
-  
-  `voornaam`
-  
-  `naam`
-  
-  `geboortedatum`
-  
-  `stad`
-
-  `straat`
-
-  `huisnummer`
-
-  `[Vervoersmiddel]`
-  
-  `*id`
-  
-  `type`
-
-  `[Verplaatsing]`
-
-  `*id`
-
-  `+vervoersmiddel_id`
-
-  `+reiziger_id`
-
-  `+bestemming_id`
-
-  `Reiziger *--1 Verplaatsing`
-  
-  `Verplaatsing *--1 Bestemming`
-
-  `Verplaatsing 1--* Vervoersmiddel`
 
 ## Opstarten
 
-> Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
+- Alles installeren: `npm install`
 
-- `npm install`
-
-- `npm run dev`
+- Server starten: `npm start`
 
 - .env: 
-  `DATABASE_URL="mysql://root:root@localhost:3306/vakantieDB"`
-  `PORT=8000`
+  
+  `DATABASE_URL="mysql://183241km:8CoKkWpebejGcMRDZK4V@vichogent.be:40043/183241km"`
+
+  `PORT=40043`
 
   `NODE_ENV=production`
 
@@ -91,6 +35,36 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
   `AUTH_USER_INFO="https://dev-tssp2kyfaa2lyu1y.us.auth0.com/userinfo"`
 
+  `AUTH_TOKEN_URL=https://dev-tssp2kyfaa2lyu1y.us.auth0.com/oauth/token`
+
+  `AUTH_TEST_USER_USER_ID=auth0|639f942faacda0152647fbbf`
+
+  `AUTH_TEST_USER_USERNAME=e2e-testing@budgetapp.be`
+
+  `AUTH_TEST_USER_PASSWORD=Test-123`
+
+  `AUTH_TEST_USER_AUTH0ID=639f942faacda0152647fbbf`
+
+  `AUTH_CLIENT_ID=sJUibowqneIEBIvxyeLQd869uivdTHuP`
+
+  `AUTH_CLIENT_SECRET=akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4`
+
 ## Testen
 
-> Schrijf hier hoe we de testen uitvoeren (.env bestanden aanmaken, commando's om uit te voeren...)
+De files moeten elk apart gerunned worden, anders doet de testuser te veel requests en wordt die geblocked door Auth0 en geeft Axios een 429 ERROR Too Many Requests terug.
+
+### reiziger.test.ts
+
+`npm run test:reiziger`
+
+### bestemming.test.ts
+
+`npm run test:bestemming`
+
+### vervoermsiddel.test.ts
+
+`npm run test:vervoersmiddel`
+
+### verplaatsing.test.ts
+
+`npm run test:verplaatsing`
