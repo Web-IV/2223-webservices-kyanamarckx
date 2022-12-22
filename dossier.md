@@ -54,20 +54,20 @@ Van de verplaatsing wordt er een id, vervoersmiddel_id, reiziger_id en bestemmin
 
 De bedoeling van deze API is dat gebruikers (hier de reizigers zelf) hun vakanties kunnen toevoegen of aanpassen en dat buitenstaanders die een account hebben deze reizen kunnen bekijken om inspiratie op te doen voor hun volgende vakantie.
 
-![ERD](/images/ERD.png "ERD")
+![ERD](images/ERD.png "ERD")
 
 ## Screenshots
 
 ### Console
 Voorbeeld van de logger na het uitvoeren van verscheidene requests:
 
-![Console](/images/CONSOLE_ALL.png "Console")
+![Console](images/CONSOLE_ALL.png "Console")
 
 ### Postman
 
 GetAll request:
 
-![GetAll](/images/POSTMAN_GETALL.png "GetAll")
+![GetAll](images/POSTMAN_GETALL.png "GetAll")
 
 GetCount request:
 
@@ -198,11 +198,11 @@ De beforeAll en afterAll zorgen dat server wordt gestart en gestopt aan het begi
 
 
 ##### RESULTS
-![Result testen Reiziger!](/images/PASSED_TESTS_REIZIGER.png "Result testen Reiziger")
+![Result testen Reiziger!](images/PASSED_TESTS_REIZIGER.png "Result testen Reiziger")
 
 
 ##### COVERAGE
-![Coverage testen Reiziger!](/images/COVERAGE_TESTS_REIZIGER.png "Coverage testen Reiziger")
+![Coverage testen Reiziger!](images/COVERAGE_TESTS_REIZIGER.png "Coverage testen Reiziger")
 
 
 #### bestemming.test.ts
@@ -238,11 +238,11 @@ De beforeAll en afterAll zorgen dat server wordt gestart en gestopt aan het begi
 
 
 ##### RESULTS
-![Result testen Bestemming!](/images/PASSED_TESTS_BESTEMMING.png "Result testen Bestemming")
+![Result testen Bestemming!](images/PASSED_TESTS_BESTEMMING.png "Result testen Bestemming")
 
 
 ##### COVERAGE
-![Coverage testen Bestemming!](/images/COVERAGE_TESTS_BESTEMMING.png "Coverage testen Bestemming")
+![Coverage testen Bestemming!](images/COVERAGE_TESTS_BESTEMMING.png "Coverage testen Bestemming")
 
 
 #### vervoermsiddel.test.ts
@@ -278,11 +278,11 @@ De beforeAll en afterAll zorgen dat server wordt gestart en gestopt aan het begi
 
 
 ##### RESULTS
-![Result testen Vervoersmiddel!](/images/PASSED_TESTS_VERVOERSMIDDEL.png "Result testen Vervoersmiddel")
+![Result testen Vervoersmiddel!](images/PASSED_TESTS_VERVOERSMIDDEL.png "Result testen Vervoersmiddel")
 
 
 ##### COVERAGE
-![Coverage testen Vervoersmiddel!](/images/COVERAGE_TESTS_VERVOERSMIDDEL.png "Coverage testen Vervoersmiddel")
+![Coverage testen Vervoersmiddel!](images/COVERAGE_TESTS_VERVOERSMIDDEL.png "Coverage testen Vervoersmiddel")
 
 
 #### verplaatsing.test.ts
@@ -318,11 +318,11 @@ De beforeAll en afterAll zorgen dat server wordt gestart en gestopt aan het begi
 
 
 ##### RESULTS
-![Result testen Verplaatsing!](/images/PASSED_TESTS_VERPLAATSING.png "Result testen Verplaatsing")
+![Result testen Verplaatsing!](images/PASSED_TESTS_VERPLAATSING.png "Result testen Verplaatsing")
 
 
 ##### COVERAGE
-![Coverage testen Verplaatsing!](/images/COVERAGE_TESTS_VERPLAATSING.png "Coverage testen Verplaatsing")
+![Coverage testen Verplaatsing!](images/COVERAGE_TESTS_VERPLAATSING.png "Coverage testen Verplaatsing")
 
 
 

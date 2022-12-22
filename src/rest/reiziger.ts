@@ -87,7 +87,7 @@ let checkScopes = requiredScopes('read');
  *      - Reizigers
  *     responses:
  *       200:
- *         description: List of users
+ *         description: List of reizigers
  *         content:
  *           application/json:
  *             schema:
@@ -137,7 +137,7 @@ async (req: Request, res: Response) => {
  *      - Reizigers
  *     responses:
  *       200:
- *         description: Count of users
+ *         description: Count of reizigers
  *         content:
  *           application/json:
  *             schema:
@@ -180,7 +180,7 @@ async (req: Request, res: Response) => {
  * @openapi
  * /api/reizigers/{id}:
  *   get:
- *     summary: Get a single user
+ *     summary: Get a single reiziger by their id
  *     tags:
  *      - Reizigers
  *     parameters:
@@ -205,7 +205,7 @@ async (req: Request, res: Response) => {
  *             schema:
  *               $ref: '#/components/responses/403Forbidden'
  *       404:
- *         description: No user with the given id could be found
+ *         description: No reiziger with the given id could be found
  *         content:
  *           application/json:
  *             schema:
@@ -246,6 +246,42 @@ async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @openapi
+ * /api/reizigers/auth0/{id}:
+ *   get:
+ *     summary: Get a single reiziger by their auth0id
+ *     tags:
+ *      - Reizigers
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The requested reiziger
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Reiziger"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No user with the given auth0id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
+
 //GET: reiziger by auth0id
 reizigerRouter.get('/auth0/:id',
 checkJwt,
@@ -282,6 +318,36 @@ async (req: Request, res: Response) => {
 
 checkScopes = requiredScopes('write');
 
+/**
+ * @openapi
+ * /api/reizigers:
+ *   get:
+ *     summary: Post/create a new reiziger
+ *     tags:
+ *      - Reizigers
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       201:
+ *         description: Reiziger created succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Reiziger"
+ *       401:
+ *         description: You are not authorized to view/edit this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only post new Reizigers unless you have the right permissions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ */
+
 //POST: create a new Reiziger
 //params: voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id
 reizigerRouter.post("/", 
@@ -316,6 +382,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/reizigers/{id}:
+ *   get:
+ *     summary: Update a single reiziger
+ *     tags:
+ *      - Reizigers
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The updated reiziger
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Reiziger"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No reiziger with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // PUT: update a Reiziger
 // params: voornaam, naam, geboortedatum, stad, straat, huisnummer, auth0id
@@ -359,6 +461,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/reizigers/{id}:
+ *   get:
+ *     summary: Delete a single reiziger
+ *     tags:
+ *      - Reizigers
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The deleted reiziger (empty body)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Reiziger"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No reiziger with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // DELETE: delete a Reiziger
 reizigerRouter.delete("/:id", 
