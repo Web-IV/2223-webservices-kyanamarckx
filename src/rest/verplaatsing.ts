@@ -11,6 +11,57 @@ import { requiredScopes } from 'express-oauth2-jwt-bearer';
 
 export const verplaatsingRouter = express.Router();
 
+
+/**
+ * @openapi
+ * tags:
+ *   name: Verplaatsingen
+ *   description: Represents a Verplaatsing in the system
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Verplaatsing:
+ *       allOf:
+ *         - $ref: "#/components/schemas/Base"
+ *         - type: object
+ *           required:
+ *             - reiziger_id
+ *             - bestemming_id
+ *             - vervoersmiddel_id
+ *           properties:
+ *             reiziger_id:
+ *               type: "integer"
+ *               minimum: 1
+ *             bestemming_id:
+ *               type: "integer"
+ *               minimum: 1
+ *             vervoersmiddel_id:
+ *               type: "integer"
+ *               minimum: 1
+ *           example:
+ *             $ref: "#/components/examples/Verplaatsing"
+ *     VerplaatsingsList:
+ *       allOf:
+ *         - $ref: "#/components/schemas/ListResponse"
+ *         - type: object
+ *           required:
+ *             - items
+ *           properties:
+ *             items:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/Reiziger"
+ *   examples:
+ *     Verplaatsing:
+ *       id: 123
+ *       reiziger_id: 1
+ *       bestemming_id: 2
+ *       vervoersmiddel_id: 3
+ */
+
 let checkScopes = requiredScopes('read');
 
 // GET: list of all Verplaatsingen

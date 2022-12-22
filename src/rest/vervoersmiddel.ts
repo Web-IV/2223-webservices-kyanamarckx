@@ -11,6 +11,47 @@ import { requiredScopes } from 'express-oauth2-jwt-bearer';
 
 export const vervoersmiddelRouter = express.Router();
 
+
+/**
+ * @openapi
+ * tags:
+ *   name: Vervoersmiddelen
+ *   description: Represents a Vervoersmiddel in the system
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Vervoersmiddel:
+ *       allOf:
+ *         - $ref: "#/components/schemas/Base"
+ *         - type: object
+ *           required:
+ *             - type
+ *           properties:
+ *             type:
+ *               type: "string"
+ *           example:
+ *             $ref: "#/components/examples/Vervoersmiddel"
+ *     VervoersmiddelenList:
+ *       allOf:
+ *         - $ref: "#/components/schemas/ListResponse"
+ *         - type: object
+ *           required:
+ *             - items
+ *           properties:
+ *             items:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/Vervoersmiddel"
+ *   examples:
+ *     Vervoersmiddel:
+ *       id: 123
+ *       type: "boot"
+ */
+
+
 let checkScopes = requiredScopes('read');
 
 // GET: list of all Vervoersmiddelen

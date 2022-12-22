@@ -11,6 +11,55 @@ import { requiredScopes } from 'express-oauth2-jwt-bearer';
 
 export const bestemmingRouter = express.Router();
 
+
+/**
+ * @openapi
+ * tags:
+ *   name: Bestemmingen
+ *   description: Represents a Bestemming in the system
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Bestemming:
+ *       allOf:
+ *         - $ref: "#/components/schemas/Base"
+ *         - type: object
+ *           required:
+ *             - land
+ *             - stad
+ *             - postcode
+ *           properties:
+ *             land:
+ *               type: "string"
+ *             stad:
+ *               type: "string"
+ *             postcode:
+ *               type: "string"
+ *           example:
+ *             $ref: "#/components/examples/Bestemming"
+ *     BestemmingsList:
+ *       allOf:
+ *         - $ref: "#/components/schemas/ListResponse"
+ *         - type: object
+ *           required:
+ *             - items
+ *           properties:
+ *             items:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/Bestemming"
+ *   examples:
+ *     Bestemming:
+ *       id: 123
+ *       land: "Spanje"
+ *       stad: "Valencia"
+ *       postcode: "46001"
+ */
+
+
 let checkScopes = requiredScopes('read');
 
 // GET: list of all Bestemmingen
