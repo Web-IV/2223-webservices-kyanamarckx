@@ -6,7 +6,7 @@
     "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": 13,
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "extends": "eslint:recommended",

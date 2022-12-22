@@ -10,7 +10,89 @@ import { checkJwt } from '../core/auth';
 import { requiredScopes } from 'express-oauth2-jwt-bearer';
 export const reizigerRouter = express.Router();
 
+
+
+/**
+ * @openapi
+ * tags:
+ *   name: Reizigers
+ *   description: Represents a Reiziger in the system
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Reiziger:
+ *       allOf:
+ *         - $ref: "#/components/schemas/Base"
+ *         - type: object
+ *           required:
+ *             - voornaam
+ *             - naam
+ *             - geboortedatum
+ *             - stad
+ *             - straat
+ *             - huisnummer
+ *             - auth0id
+ *           properties:
+ *             voornaam:
+ *               type: "string"
+ *             naam:
+ *               type: "string"
+ *             geboortedatum:
+ *               type: "string"
+ *             stad:
+ *               type: "string"
+ *             straat:
+ *               type: "string"
+ *             huisnummer:
+ *               type: "string"
+ *             auth0id:
+ *               type: "string"
+ *           example:
+ *             $ref: "#/components/examples/Reiziger"
+ *     ReizigersList:
+ *       allOf:
+ *         - $ref: "#/components/schemas/ListResponse"
+ *         - type: object
+ *           required:
+ *             - items
+ *           properties:
+ *             items:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/Reiziger"
+ *   examples:
+ *     Reiziger:
+ *       id: 123
+ *       voornaam: "Kyana"
+ *       naam: "Marckx"
+ *       geboortedatum: "2003-10-01"
+ *       stad: "Lierde"
+ *       straat: "Keistraat"
+ *       huisnummer: "1C"
+ *       auth0id: auth0|639a0a121568a9f37000fec0
+ */
+
 let checkScopes = requiredScopes('read');
+
+
+/**
+ * @openapi
+ * /api/reizigers:
+ *   get:
+ *     summary: Get all reizigers
+ *     tags:
+ *      - Reizigers
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ReizigersList"
+ */
 
 // GET: list of all Reizigers
 reizigerRouter.get('/', 
@@ -46,6 +128,22 @@ async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @openapi
+ * /api/reizigers:
+ *   get:
+ *     summary: Get count of all reizigers
+ *     tags:
+ *      - Reizigers
+ *     responses:
+ *       200:
+ *         description: Count of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ReizigersList"
+ */
+
 // GET: count of all reizigers
 reizigerRouter.get('/count',
 checkJwt,
@@ -77,6 +175,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/reizigers/{id}:
+ *   get:
+ *     summary: Get a single user
+ *     tags:
+ *      - Reizigers
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The requested user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Reiziger"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No user with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // GET: Reiziger by id
 reizigerRouter.get('/:id', 

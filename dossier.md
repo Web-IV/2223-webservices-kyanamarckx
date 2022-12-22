@@ -44,7 +44,7 @@
 
 Dit project is een API dat te maken heeft met op vakantie gaan. Er zijn 4 tabellen aanwezig: Reiziger, Bestemming, Vervoersmiddel en Verplaatsing. 
 
-Van de reiziger wordt er een id, voornaam, naam, geboortedatum (in de vorm van YYYY-MM-DD), stad, straat en huisnummer bijgehouden. 
+Van de reiziger wordt er een id, voornaam, naam, geboortedatum (in de vorm van YYYY-MM-DD), stad, straat, huisnummer en auth0id bijgehouden. 
 
 Van de bestemming wordt er een id, land, stad en postcode bijgehouden.
 
