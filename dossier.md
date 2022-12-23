@@ -23,6 +23,10 @@
 - **Wachtwoord**: None-123
 - **Body in Postman**: `{"grant_type":"password","username":"none@gmail.com","password":"None-123","audience":"https://vacay.kyana-hogent.be","scope":"openid profile email offline_access","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}`
 
+### Testuser:
+- **Gebruikersnaam/e-mailadres**: e2e-testing@budgetapp.be
+- **Wachtwoord**: Test-123
+
 ### Link
 - https://webservices-kyanamarckx.onrender.com/api/
   - reizigers/

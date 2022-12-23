@@ -2,7 +2,6 @@ import * as dotenv from 'dotenv';
 import express, { NextFunction } from 'express';
 import cors from 'cors';
 import emoji from 'node-emoji';
-import swaggerUi from "swagger-ui-express";
 
 import { $log as logger } from "ts-log-debug";
 
@@ -95,16 +94,6 @@ export default async function createServer() {
   app.use(cors());
 
   app.use(express.json());
-
-  app.use(
-    "/docs",
-    swaggerUi.serve,
-    swaggerUi.setup(undefined, {
-      swaggerOptions: {
-        url: "/swagger.json",
-      },
-    })
-  );
 
   installRoutes(app);
 
