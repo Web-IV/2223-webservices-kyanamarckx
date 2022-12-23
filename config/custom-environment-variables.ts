@@ -1,5 +1,6 @@
 module.exports = {
   env: 'NODE_ENV',
+  serverUrl: 'SERVER_URL',
   port: 'PORT',
   auth: {
     jwksUri: 'AUTH_JWKS_URI',

@@ -28,6 +28,7 @@ logger.name = 'Server';
 const app = express();
 
 export default async function createServer() {
+  const URL = config.get('serverUrl');
   const PORT: number = parseInt(process.env.PORT as string, 10);
 
   reset();
@@ -119,7 +120,7 @@ export default async function createServer() {
       return new Promise<void>((resolve) => {
         //FOR RUNNING ALL TESTS AT ONCE: remove the 'port' from listen(port)
         app.listen(PORT);
-        logger.info(`${emoji.get("sun_with_face")} Server running on http://localhost:${PORT}`);
+        logger.info(`${emoji.get("sun_with_face")} Server running on ${URL}:${PORT}`);
         resolve();
       });
     },
