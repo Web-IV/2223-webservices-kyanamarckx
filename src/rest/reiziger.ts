@@ -11,7 +11,6 @@ import { requiredScopes } from 'express-oauth2-jwt-bearer';
 export const reizigerRouter = express.Router();
 
 
-
 /**
  * @openapi
  * tags:

@@ -35,4 +35,3 @@ export async function addUserInfo(ctx: any) {
 		throw error;
 	}
 }
-

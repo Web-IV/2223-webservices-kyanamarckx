@@ -5,7 +5,7 @@ module.exports = {
     disabled: false,
   },
   cors: {
-    origins: ['http://localhost:40043'],
+    origins: ['http://localhost:8000'],
     maxAge: 3 * 60 * 60,
   }
 };

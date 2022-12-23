@@ -11,17 +11,17 @@
 ### User met read en write permissies:
 - **Gebruikersnaam/e-mailadres**: online@gmail.com
 - **Wachtwoord**: Online123
-- **Body in Postman**: `{"grant_type":"password","username":"online@gmail.com","password":"Online123","audience":"https://vacay.kyana-hogent.be","scope":"read write","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}`
+- **Body in Postman**: ```{"grant_type":"password","username":"online@gmail.com","password":"Online123","audience":"https://vacay.kyana-hogent.be","scope":"read write","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}```
 
 ### User met read permissies:
 - **Gebruikersnaam/e-mailadres**: read@gmail.com
 - **Wachtwoord**: Read-123
-- **Body in Postman**: `{"grant_type":"password","username":"read@gmail.com","password":"Read-123","audience":"https://vacay.kyana-hogent.be","scope":"read","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}`
+- **Body in Postman**: ```{"grant_type":"password","username":"read@gmail.com","password":"Read-123","audience":"https://vacay.kyana-hogent.be","scope":"read","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}```
 
 ### User met geen permissies:
 - **Gebruikersnaam/e-mailadres**: none@gmail.com
 - **Wachtwoord**: None-123
-- **Body in Postman**: `{"grant_type":"password","username":"none@gmail.com","password":"None-123","audience":"https://vacay.kyana-hogent.be","scope":"openid profile email offline_access","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}`
+- **Body in Postman**: ```{"grant_type":"password","username":"none@gmail.com","password":"None-123","audience":"https://vacay.kyana-hogent.be","scope":"openid profile email offline_access","client_id":"sJUibowqneIEBIvxyeLQd869uivdTHuP","client_secret":"akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4"}```
 
 ### Testuser:
 - **Gebruikersnaam/e-mailadres**: e2e-testing@budgetapp.be

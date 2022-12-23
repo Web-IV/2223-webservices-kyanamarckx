@@ -20,34 +20,35 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 - Server starten: `npm start`
 
 - .env: 
-  
-  `DATABASE_URL="mysql://183241km:8CoKkWpebejGcMRDZK4V@vichogent.be:40043/183241km"`
+```  
+  DATABASE_URL=mysql://183241km:8CoKkWpebejGcMRDZK4V@vichogent.be:40043/183241km
 
-  `PORT=40043`
+  PORT=40043
 
-  `NODE_ENV=production`
+  NODE_ENV=production
 
-  `AUTH_ISSUER='https://dev-tssp2kyfaa2lyu1y.us.auth0.com/'`
+  AUTH_ISSUER=https://dev-tssp2kyfaa2lyu1y.us.auth0.com/
 
-  `AUTH_AUDIENCE='https://vacay.kyana-hogent.be'`
+  AUTH_AUDIENCE=https://vacay.kyana-hogent.be
 
-  `AUTH_JWKS_URI='https://dev-tssp2kyfaa2lyu1y.us.auth0.com/.well-known/jwks.json'`
+  AUTH_JWKS_URI=https://dev-tssp2kyfaa2lyu1y.us.auth0.com/.well-known/jwks.json
 
-  `AUTH_USER_INFO="https://dev-tssp2kyfaa2lyu1y.us.auth0.com/userinfo"`
+  AUTH_USER_INFO=https://dev-tssp2kyfaa2lyu1y.us.auth0.com/userinfo
 
-  `AUTH_TOKEN_URL=https://dev-tssp2kyfaa2lyu1y.us.auth0.com/oauth/token`
+  AUTH_TOKEN_URL=https://dev-tssp2kyfaa2lyu1y.us.auth0.com/oauth/token
 
-  `AUTH_TEST_USER_USER_ID=auth0|639f942faacda0152647fbbf`
+  AUTH_TEST_USER_USER_ID=auth0|639f942faacda0152647fbbf
 
-  `AUTH_TEST_USER_USERNAME=e2e-testing@budgetapp.be`
+  AUTH_TEST_USER_USERNAME=e2e-testing@budgetapp.be
 
-  `AUTH_TEST_USER_PASSWORD=Test-123`
+  AUTH_TEST_USER_PASSWORD=Test-123
 
-  `AUTH_TEST_USER_AUTH0ID=639f942faacda0152647fbbf`
+  AUTH_TEST_USER_AUTH0ID=639f942faacda0152647fbbf
 
-  `AUTH_CLIENT_ID=sJUibowqneIEBIvxyeLQd869uivdTHuP`
+  AUTH_CLIENT_ID=sJUibowqneIEBIvxyeLQd869uivdTHuP
 
-  `AUTH_CLIENT_SECRET=akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4`
+  AUTH_CLIENT_SECRET=akPiwhNalFp6QXm8LlP7s38cCxoI5SP4pCropiZNKjBZ_kI0isxsN6UlwVkvsji4
+```
 
 ## Testen
 

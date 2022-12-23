@@ -30,7 +30,7 @@
     "eslint": "^8.30.0",
     "eslint-plugin-import": "^2.26.0",
     "express": "^4.18.2",
-    "express-jwt": "^7.7.7",
+    "express-jwt": "^8.2.0",
     "express-oauth2-jwt-bearer": "^1.2.0",
     "express-openid-connect": "^2.11.0",
     "express-validator": "^6.14.2",
@@ -91,7 +91,5 @@
   "bugs": {
     "url": "https://github.com/Web-IV/2223-webservices-kyanamarckx/issues"
   },
-  "homepage": "https://github.com/Web-IV/2223-webservices-kyanamarckx#readme",
-  "devDependencies": {
-  }
+  "homepage": "https://github.com/Web-IV/2223-webservices-kyanamarckx#readme"
 }
