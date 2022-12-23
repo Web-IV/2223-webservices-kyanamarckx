@@ -159,6 +159,11 @@ Het grootste verschil tussen JavaScript en TypeScript is dat TypeScript veel str
 
 Package: [`npm install typescript`](https://www.npmjs.com/package/typescript)
 
+
+#### OpenApi / Swagger
+
+Dit is een tool om eigen documentatie te schrijven voor een API. Ik was hier aan begonnen maar is niet klaar.
+
 ## Testresultaten
 
 ### Web Services

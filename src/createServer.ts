@@ -2,6 +2,8 @@ import * as dotenv from 'dotenv';
 import express, { NextFunction } from 'express';
 import cors from 'cors';
 import emoji from 'node-emoji';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 import { $log as logger } from "ts-log-debug";
 
@@ -25,6 +27,20 @@ logger.level = 'debug';
 logger.name = 'Server';
 
 const app = express();
+
+const options = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'My API',
+      version: '1.0.0',
+      description: 'This Express API is written in TypeScript and uses Prisma ORM with a documentation from Swagger',
+    },
+  },
+  apis: ['./src/routes/*.ts'], // Path to the API docs
+};
+
+const specs = swaggerJSDoc(options);
 
 export default async function createServer() {
   const URL = config.get('serverUrl');
@@ -95,6 +111,13 @@ export default async function createServer() {
 
   app.use(express.json());
 
+  // app.get('/vacay.yaml', (req: Request, res: Response) => {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.send(specs);
+  // });
+
+  // app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs));
+
   installRoutes(app);
 
   seed();
@@ -117,7 +140,7 @@ export default async function createServer() {
     async stop() {
       app.removeAllListeners();
       new Promise<void>((resolve) => {
-        app.listen().close(() => {
+        app.listen(PORT).close(() => {
           logger.info(`${emoji.get("waning_crescent_moon")} Server stopped`);
           resolve();
         });

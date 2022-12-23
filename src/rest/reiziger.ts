@@ -11,68 +11,70 @@ import { requiredScopes } from 'express-oauth2-jwt-bearer';
 export const reizigerRouter = express.Router();
 
 
-/**
- * @openapi
- * tags:
- *   name: Reizigers
- *   description: Represents a Reiziger in the system
- */
+// /**
+//  * @openapi
+//  * tags:
+//  *   name: Reizigers
+//  *   description: Represents a Reiziger in the system
+//  */
 
-/**
- * @openapi
- * components:
- *   schemas:
- *     Reiziger:
- *       allOf:
- *         - $ref: "#/components/schemas/Base"
- *         - type: object
- *           required:
- *             - voornaam
- *             - naam
- *             - geboortedatum
- *             - stad
- *             - straat
- *             - huisnummer
- *             - auth0id
- *           properties:
- *             voornaam:
- *               type: "string"
- *             naam:
- *               type: "string"
- *             geboortedatum:
- *               type: "string"
- *             stad:
- *               type: "string"
- *             straat:
- *               type: "string"
- *             huisnummer:
- *               type: "string"
- *             auth0id:
- *               type: "string"
- *           example:
- *             $ref: "#/components/examples/Reiziger"
- *     ReizigersList:
- *       allOf:
- *         - $ref: "#/components/schemas/ListResponse"
- *         - type: object
- *           required:
- *             - items
- *           properties:
- *             items:
- *               type: array
- *               items:
- *                 $ref: "#/components/schemas/Reiziger"
- *   examples:
- *     Reiziger:
- *       id: 123
- *       voornaam: "Kyana"
- *       naam: "Marckx"
- *       geboortedatum: "2003-10-01"
- *       stad: "Lierde"
- *       straat: "Keistraat"
- *       huisnummer: "1C"
- *       auth0id: auth0|639a0a121568a9f37000fec0
- */
+// /**
+//  * @openapi
+//  * components:
+//  *   schemas:
+//  *     Reiziger:
+//  *       allOf:
+//  *         - $ref: "#/components/schemas/Base"
+//  *         - type: object
+//  *           required:
+//  *             - voornaam
+//  *             - naam
+//  *             - geboortedatum
+//  *             - stad
+//  *             - straat
+//  *             - huisnummer
+//  *             - auth0id
+//  *           properties:
+//  *             voornaam:
+//  *               type: "string"
+//  *             naam:
+//  *               type: "string"
+//  *             geboortedatum:
+//  *               type: "string"
+//  *             stad:
+//  *               type: "string"
+//  *             straat:
+//  *               type: "string"
+//  *             huisnummer:
+//  *               type: "string"
+//  *             auth0id:
+//  *               type: "string"
+//  *           example:
+//  *             $ref: "#/components/examples/Reiziger"
+//  *     ReizigersList:
+//  *       allOf:
+//  *         - $ref: "#/components/schemas/ListResponse"
+//  *         - type: object
+//  *           required:
+//  *             - items
+//  *           properties:
+//  *             items:
+//  *               type: array
+//  *               items:
+//  *                 $ref: "#/components/schemas/Reiziger"
+//  *   examples:
+//  *     Reiziger:
+//  *       id: 123
+//  *       voornaam: "Kyana"
+//  *       naam: "Marckx"
+//  *       geboortedatum: "2003-10-01"
+//  *       stad: "Lierde"
+//  *       straat: "Keistraat"
+//  *       huisnummer: "1C"
+//  *       auth0id: auth0|639a0a121568a9f37000fec0
+//  */
+
+
 
 let checkScopes = requiredScopes('read');
 
@@ -92,6 +94,13 @@ let checkScopes = requiredScopes('read');
  *             schema:
  *               $ref: "#/components/schemas/ReizigersList"
  */
+
+
+/**
+ * @route GET /reizigers
+ * @returns {object} 200 - All Reizigers
+ */
+
 
 // GET: list of all Reizigers
 reizigerRouter.get('/', 
