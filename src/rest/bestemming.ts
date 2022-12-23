@@ -62,6 +62,22 @@ export const bestemmingRouter = express.Router();
 
 let checkScopes = requiredScopes('read');
 
+/**
+ * @openapi
+ * /api/bestemmingen:
+ *   get:
+ *     summary: Get all bestemmingen
+ *     tags:
+ *      - Bestemmingen
+ *     responses:
+ *       200:
+ *         description: List of bestemmingen
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BestemmingsList"
+ */
+
 // GET: list of all Bestemmingen
 bestemmingRouter.get('/', 
 checkJwt,
@@ -96,6 +112,22 @@ async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @openapi
+ * /api/bestemmingen:
+ *   get:
+ *     summary: Get count of all bestemmingen
+ *     tags:
+ *      - Bestemmingen
+ *     responses:
+ *       200:
+ *         description: Count of bestemmingen
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BestemmingsList"
+ */
+
 // GET: Bestemming count
 bestemmingRouter.get('/count',
 checkJwt,
@@ -127,6 +159,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/bestemmingen/{id}:
+ *   get:
+ *     summary: Get a single bestemming by its id
+ *     tags:
+ *      - Bestemmingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The requested bestemming
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Bestemming"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No bestemming with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // GET: Bestemming by id
 bestemmingRouter.get('/:id', 
@@ -164,6 +232,36 @@ async (req: Request, res: Response) => {
 
 checkScopes = requiredScopes('write');
 
+/**
+ * @openapi
+ * /api/bestemmingen:
+ *   post:
+ *     summary: Post/create a new bestemming
+ *     tags:
+ *      - Bestemmingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       201:
+ *         description: Bestemming created succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Bestemming"
+ *       401:
+ *         description: You are not authorized to view/edit this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can not post new Bestemmingen unless you have the right permissions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ */
+
 //POST: create a new Bestemming
 // params: land, stad, postcode
 bestemmingRouter.post("/",
@@ -194,6 +292,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/bestemmingen/{id}:
+ *   put:
+ *     summary: Update a single bestemming
+ *     tags:
+ *      - Bestemmingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The updated bestemming
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Bestemming"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No bestemming with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // PUT: update a Bestemming
 // params: land, stad, postcode
@@ -233,6 +367,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/bestemmingen/{id}:
+ *   delete:
+ *     summary: Delete a single bestemming
+ *     tags:
+ *      - Bestemmingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The deleted bestemming (empty body)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Bestemming"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No bestemming with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // DELETE: delete a Bestemming
 bestemmingRouter.delete("/:id", 

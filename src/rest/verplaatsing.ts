@@ -53,7 +53,7 @@ export const verplaatsingRouter = express.Router();
  *             items:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Reiziger"
+ *                 $ref: "#/components/schemas/Verplaatsing"
  *   examples:
  *     Verplaatsing:
  *       id: 123
@@ -63,6 +63,22 @@ export const verplaatsingRouter = express.Router();
  */
 
 let checkScopes = requiredScopes('read');
+
+/**
+ * @openapi
+ * /api/verplaatsingen:
+ *   get:
+ *     summary: Get all verplaatsingen
+ *     tags:
+ *      - Verplaatsingen
+ *     responses:
+ *       200:
+ *         description: List of verplaatsingen
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/VerplaatsingsList"
+ */
 
 // GET: list of all Verplaatsingen
 verplaatsingRouter.get('/', 
@@ -98,6 +114,22 @@ async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @openapi
+ * /api/verplaatsingen:
+ *   get:
+ *     summary: Get count of all verplaatsingen
+ *     tags:
+ *      - Verplaatsingen
+ *     responses:
+ *       200:
+ *         description: Count of verplaatsingen
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/VerplaatsingsList"
+ */
+
 // GET: Verplaatsing count
 verplaatsingRouter.get('/count',
 checkJwt,
@@ -129,6 +161,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/verplaatsingen/{id}:
+ *   get:
+ *     summary: Get a single verplaatsing by its id
+ *     tags:
+ *      - Verplaatsingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The requested verplaatsing
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Verplaatsing"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No verplaatsing with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // GET: Verplaatsing by id
 verplaatsingRouter.get('/:id', 
@@ -166,6 +234,36 @@ async (req: Request, res: Response) => {
 
 checkScopes = requiredScopes('write');
 
+/**
+ * @openapi
+ * /api/verplaatsingen:
+ *   post:
+ *     summary: Post/create a new verplaatsing
+ *     tags:
+ *      - Verplaatsingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       201:
+ *         description: Verplaatsing created succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Verplaatsing"
+ *       401:
+ *         description: You are not authorized to view/edit this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can not post new Verplaatsingen unless you have the right permissions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ */
+
 //POST: create a new Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
 verplaatsingRouter.post("/",
@@ -196,6 +294,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/verplaatsingen/{id}:
+ *   put:
+ *     summary: Update a single verplaatsing
+ *     tags:
+ *      - Bestemmingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The updated verplaatsing
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Verplaatsing"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No verplaatsing with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // PUT: update a Verplaatsing
 // params: reiziger_id, bestemming_id, vervoersmiddel_id
@@ -235,6 +369,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/verplaatsingen/{id}:
+ *   delete:
+ *     summary: Delete a single verplaatsing
+ *     tags:
+ *      - Verplaatsingen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The deleted verplaatsing (empty body)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Verplaatsing"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No verplaatsing with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // DELETE: delete a Verplaatsing
 verplaatsingRouter.delete("/:id", 

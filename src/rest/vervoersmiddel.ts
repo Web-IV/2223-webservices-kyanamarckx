@@ -54,6 +54,22 @@ export const vervoersmiddelRouter = express.Router();
 
 let checkScopes = requiredScopes('read');
 
+/**
+ * @openapi
+ * /api/vervoersmiddelen:
+ *   get:
+ *     summary: Get all vervoersmiddelen
+ *     tags:
+ *      - Vervoersmiddelen
+ *     responses:
+ *       200:
+ *         description: List of vervoersmiddelen
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/VervoersmiddelenList"
+ */
+
 // GET: list of all Vervoersmiddelen
 vervoersmiddelRouter.get('/', 
 checkJwt,
@@ -88,6 +104,22 @@ async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @openapi
+ * /api/vervoersmiddelen:
+ *   get:
+ *     summary: Get count of all vervoersmiddelen
+ *     tags:
+ *      - Vervoersmiddelen
+ *     responses:
+ *       200:
+ *         description: Count of vervoermsiddelen
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/VervoersmiddelenList"
+ */
+
 //GET: Vervoersmiddel count
 vervoersmiddelRouter.get('/count',
 checkJwt,
@@ -119,6 +151,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/vervoersmiddelen/{id}:
+ *   get:
+ *     summary: Get a single vervoersmiddel by its id
+ *     tags:
+ *      - Vervoersmiddelen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The requested vervoersmiddel
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Vervoersmiddel"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No vervoersmiddel with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // GET: Vervoersmiddel by id
 vervoersmiddelRouter.get('/:id', 
@@ -156,6 +224,36 @@ async (req: Request, res: Response) => {
 
 checkScopes = requiredScopes('write');
 
+/**
+ * @openapi
+ * /api/vervoersmiddelen:
+ *   post:
+ *     summary: Post/create a new vervoersmiddel
+ *     tags:
+ *      - Vervoersmiddelen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       201:
+ *         description: Vervoermsiddel created succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Vervoersmiddel"
+ *       401:
+ *         description: You are not authorized to view/edit this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can not post new Vervoersmiddelen unless you have the right permissions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ */
+
 //POST: create a new Vervoersmiddel
 // params: type
 vervoersmiddelRouter.post("/",
@@ -184,6 +282,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/vervoersmiddelen/{id}:
+ *   put:
+ *     summary: Update a single vervoersmiddel
+ *     tags:
+ *      - Vervoersmiddelen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The updated vervoersmiddel
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Vervoersmiddel"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No vervoersmiddel with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // PUT: update a Vervoersmiddel
 // params: type
@@ -221,6 +355,42 @@ async (req: Request, res: Response) => {
     return res.status(500).json(error.message);
   }
 });
+
+/**
+ * @openapi
+ * /api/vervoersmiddelen/{id}:
+ *   delete:
+ *     summary: Delete a single vervoermsiddel
+ *     tags:
+ *      - Vervoersmiddelen
+ *     parameters:
+ *       - $ref: "#/components/parameters/idParam"
+ *     responses:
+ *       200:
+ *         description: The deleted vervoersmiddel (empty body)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Vervoersmiddel"
+ *       401:
+ *         description: You are not authorized to view this part of the application
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/401Unauthorized'
+ *       403:
+ *         description: You can only request your own information unless you're an admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/403Forbidden'
+ *       404:
+ *         description: No vervoermsiddel with the given id could be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/responses/404NotFound'
+ */
 
 // DELETE: delete a Vervoersmiddel
 vervoersmiddelRouter.delete("/:id", 

@@ -321,7 +321,7 @@ checkScopes = requiredScopes('write');
 /**
  * @openapi
  * /api/reizigers:
- *   get:
+ *   post:
  *     summary: Post/create a new reiziger
  *     tags:
  *      - Reizigers
@@ -341,7 +341,7 @@ checkScopes = requiredScopes('write');
  *             schema:
  *               $ref: '#/components/responses/401Unauthorized'
  *       403:
- *         description: You can only post new Reizigers unless you have the right permissions
+ *         description: You can not post new Reizigers unless you have the right permissions
  *         content:
  *           application/json:
  *             schema:
@@ -386,7 +386,7 @@ async (req: Request, res: Response) => {
 /**
  * @openapi
  * /api/reizigers/{id}:
- *   get:
+ *   put:
  *     summary: Update a single reiziger
  *     tags:
  *      - Reizigers
@@ -465,7 +465,7 @@ async (req: Request, res: Response) => {
 /**
  * @openapi
  * /api/reizigers/{id}:
- *   get:
+ *   delete:
  *     summary: Delete a single reiziger
  *     tags:
  *      - Reizigers
